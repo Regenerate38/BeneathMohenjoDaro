@@ -1,9 +1,28 @@
-import './assets/main.css'
-import { defineCustomElements as defineIonPhaser } from '@ion-phaser/core/loader';
-import { createApp }  from 'vue'
-import App from './App.vue'
+import { Boot } from './game/scenes/Boot';
+import { Game } from './game/scenes/Game';
+import { GameOver } from './game/scenes/GameOver';
+import { MainMenu } from './game/scenes/MainMenu';
+import { Preloader } from './game/scenes/Preloader';
 
- 
-defineIonPhaser(window);
+//  Find out more information about the Game Config at:
+//  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
+const config = {
+    type: Phaser.AUTO,
+    width: 1024,
+    height: 768,
+    parent: 'game-container',
+    backgroundColor: '#028af8',
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [
+        Boot,
+        Preloader,
+        MainMenu,
+        Game,
+        GameOver
+    ]
+};
 
-createApp(App).mount('#app')
+export default new Phaser.Game(config);
