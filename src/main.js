@@ -1,17 +1,34 @@
-import { Boot } from './game/scenes/Boot';
-import { Game } from './game/scenes/Game';
-import { GameOver } from './game/scenes/GameOver';
-import { MainMenu } from './game/scenes/MainMenu';
-import { Preloader } from './game/scenes/Preloader';
+import { InfoPanel } from './game/InfoPanel';
+import {
+    Boot
+} from './game/scenes/Boot';
+import {
+    Game
+} from './game/scenes/Game';
+import {
+    GameOver
+} from './game/scenes/GameOver';
+import {
+    MainMenu
+} from './game/scenes/MainMenu';
+import {
+    Preloader
+} from './game/scenes/Preloader';
+import { Room0 } from './game/story/rooms/Room0';
 
-//  Find out more information about the Game Config at:
-//  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
+
+
+
 const config = {
     type: Phaser.AUTO,
+    title: "Beneath MohenjoDaro",
+    render: {
+        antialias: false,
+    },
     width: 1024,
     height: 768,
     parent: 'game-container',
-    backgroundColor: '#028af8',
+    backgroundColor: '#000000',
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
@@ -21,7 +38,8 @@ const config = {
         Preloader,
         MainMenu,
         Game,
-        GameOver
+        GameOver,
+        Room0,
     ]
 };
 
