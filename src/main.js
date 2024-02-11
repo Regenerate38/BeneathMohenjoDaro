@@ -14,7 +14,9 @@ import {
 import {
     Preloader
 } from './game/scenes/Preloader';
+import { TempScene } from './game/story/TempScene';
 import { Room0 } from './game/story/rooms/Room0';
+import { TrainingRoom } from './game/training/TrainingRoom';
 
 
 
@@ -40,6 +42,8 @@ const config = {
         Game,
         GameOver,
         Room0,
+        TrainingRoom,
+        TempScene
     ]
 };
 

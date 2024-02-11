@@ -10,6 +10,16 @@ export class Room0 extends Scene {
         super('Room0');
     }
 
+    player_x = 14;
+    player_y = 19;
+
+    init(data) {
+        if(data.byTeleport) {
+        this.player_x= 20;
+        this.player_y = 14; 
+    }
+    }
+
     preload(){
         this.load.image("room0tiles", "assets/room_zero_tiles.png");
         this.load.tilemapTiledJSON("room_zero", "assets/room_zero.tmj");
@@ -37,7 +47,7 @@ export class Room0 extends Scene {
         playerSprite.scale = 3;
         
         this.cameras.main.startFollow(playerSprite, true, 0.5, 0.5);
-        this.player = new Player(playerSprite, new Phaser.Math.Vector2(14, 19));
+        this.player = new Player(playerSprite, new Phaser.Math.Vector2(this.player_x, this.player_y));
 
         this.gridPhysics = new GridPhysics(this.player, roomZeroTileMap)
         this.gridControls = new GridControls(this.input, this.gridPhysics)
@@ -69,7 +79,8 @@ export class Room0 extends Scene {
     update(_time, delta) {
         this.gridControls.update();
         this.gridPhysics.update(delta);
-        if(this.player.getTilePos().x ===14 && this.player.getTilePos().y === 19 && this.gridPhysics.facingDirection === Direction.DOWN) this.scene.start('Game')
+        if(this.player.getTilePos().x ===14 && this.player.getTilePos().y === 19 && this.gridPhysics.facingDirection === Direction.DOWN) 
+        {this.scene.start('Game', {currentX: 20, currentY:7, fromRoom: true}) }
 
     }
 }
