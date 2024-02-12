@@ -24,12 +24,25 @@ export class MainMenu extends Scene {
         const menu_music = this.sound.add('main_menu_theme');
         menu_music.play();
 
-        const continue_game = this.add.text(512, 380, 'Continue', main_menu_style).setOrigin(0.5);
-        const newgame = this.add.text(512, 430, 'New Game', main_menu_style).setOrigin(0.5);
-        const options = this.add.text(512, 480, 'Options', main_menu_style).setOrigin(0.5);
-        const quit_game = this.add.text(512, 530, 'Quit Game', main_menu_style).setOrigin(0.5);
+        const continue_game = this.add.text(512, 380, 'Continue', main_menu_style).setOrigin(0.5).setInteractive();
+        const newgame = this.add.text(512, 430, 'New Game', main_menu_style).setOrigin(0.5).setInteractive();
+        const options = this.add.text(512, 480, 'Options', main_menu_style).setOrigin(0.5).setInteractive();
+        const quit_game = this.add.text(512, 530, 'Quit Game', main_menu_style).setOrigin(0.5).setInteractive();
 
-        this.input.once('pointerdown', () => {
+        const menuItems = [continue_game, newgame, options, quit_game];
+
+        menuItems.forEach((obj) => {
+            obj.on('pointerout', () => {
+                obj.setStroke('#000000');
+            });
+            obj.on("pointerover", () => {
+                obj.setStroke('#1f51ff');
+             });
+     
+        });
+     
+
+        continue_game.on('pointerdown', () => {
             this.scene.start('Game');
         });
     }
