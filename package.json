@@ -23,6 +23,7 @@
         "vite": "^5.0.8"
     },
     "dependencies": {
-        "phaser": "^3.70.0"
+        "phaser": "^3.70.0",
+        "react-blockly": "^8.1.1"
     }
 }
