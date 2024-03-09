@@ -11,7 +11,7 @@ export class MergeSort extends Scene {
   }
 
   preload() {
-    this.load.image("Scroll", "../../../../../public/assets/tvzor-lazur.png");
+    this.load.image("Scroll", "/assets/tvzor-lazur.png");
   }
 
   create() {

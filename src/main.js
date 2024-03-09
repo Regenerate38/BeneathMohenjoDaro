@@ -14,6 +14,9 @@ import { MergeSort } from "./game/training/algorithms/sorting/MergeSort";
 import { InsertionSort } from "./game/training/algorithms/sorting/InsertionSort";
 import { ShellSort } from "./game/training/algorithms/sorting/ShellSort";
 import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch";
+import { Pathfinding } from "./game/training/algorithms/pathfinding/Pathfinding";
+import { BreadthFirst } from "./game/training/algorithms/pathfinding/BreadthFirst";
+import { DepthFirst } from "./game/training/algorithms/pathfinding/DepthFirst";
 
 const config = {
   type: Phaser.AUTO,
@@ -45,6 +48,9 @@ const config = {
     InsertionSort,
     ShellSort,
     LinearSearch,
+    Pathfinding,
+    BreadthFirst,
+    DepthFirst,
   ],
 };
 

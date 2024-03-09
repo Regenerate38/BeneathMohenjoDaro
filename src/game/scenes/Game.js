@@ -30,7 +30,6 @@ export class Game extends Scene {
       "Beneath_Mohenjodaro_Tiles",
       "tiles"
     );
-    // console.log(startingRoomTileMap.layers.length.toString());
     for (let i = 0; i < startingRoomTileMap.layers.length; i++) {
       const layer = startingRoomTileMap.createLayer(
         i,
@@ -57,8 +56,6 @@ export class Game extends Scene {
     this.createPlayerAnimation(Direction.DOWN, 58, 59);
     this.createPlayerAnimation(Direction.LEFT, 70, 71);
 
-    // if(this.gridPhysics.collision_with_artifact) {console.log('works');}
-    //console.log(this.gridPhysics.collision_with_artifact)
     var key_x = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
     key_x.on("down", () => {
       if (this.gridPhysics.isFacingObject) this.load_artifact_information();
