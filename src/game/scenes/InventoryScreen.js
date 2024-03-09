@@ -130,4 +130,4 @@ export class InventoryScreen extends Scene {
     update() {
 
     }
-}
+}   

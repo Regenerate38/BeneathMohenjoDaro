@@ -1,3 +1,4 @@
+
 import {
     Scene
 } from 'phaser';
@@ -30,6 +31,8 @@ import { Room1 } from './Room1';
 
 export class Room0 extends Scene {
 
+
+export class Room0 extends Scene {
     constructor() {
         super('Room0');
     }
@@ -90,6 +93,7 @@ export class Room0 extends Scene {
         this.createPlayerAnimation(Direction.DOWN, 58, 59);
         this.createPlayerAnimation(Direction.LEFT, 70, 71);
 
+
         var key_x = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
         key_x.on('down', () => {
             if (this.gridPhysics.isFacingObject) this.load_artifact_information();
@@ -121,8 +125,8 @@ export class Room0 extends Scene {
             this.show_map();
         })
 
-
     }
+
     createPlayerAnimation(name, startFrame, endFrame) {
         this.anims.create({
             key: name,
@@ -176,6 +180,7 @@ export class Room0 extends Scene {
     update(_time, delta) {
         this.gridControls.update();
         this.gridPhysics.update(delta);
+
         console.log(this.player.getTilePos().x, this.player.getTilePos().y)
         if (this.player.getTilePos().x === 0 && this.player.getTilePos().y === 10 && this.gridPhysics.facingDirection === Direction.LEFT) this.scene.start('TrainingRoom', {
             sourceRoom: "Room0"

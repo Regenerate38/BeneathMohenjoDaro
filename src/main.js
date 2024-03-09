@@ -31,7 +31,14 @@ import { Room1 } from './game/story/rooms/Room1';
 import {
     TrainingRoom
 } from './game/training/TrainingRoom';
-
+import { Sorting } from "./game/training/algorithms/sorting/Sorting";
+import { Edit } from "./game/training/algorithms/sorting/Edit";
+import { TempScene } from "./game/story/TempScene";
+import { TOH } from "./game/story/puzzles/TOH";
+import { SortWindow } from "./game/training/algorithms/sorting/SortWindow";
+import { Searching } from "./game/training/algorithms/searching/Searching";
+import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch";
+import { BinarySearch } from "./game/training/algorithms/searching/BinarySearch";
 
 
 
@@ -60,8 +67,16 @@ const config = {
         Puzzle1,
         Puzzle2,
         RewardScreen,
+          Sorting,
+    SortWindow,
+    Searching,
+    LinearSearch,
+    BinarySearch,
+        TOH,
+    Edit,
 
     ]
+
 };
 
 export default new Phaser.Game(config);
