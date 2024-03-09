@@ -5,11 +5,11 @@ export class Pathfinding extends Scene {
     super("Pathfinding");
   }
   preload() {
-    this.load.image("Scroll", "/assets/tvzor-lazur.png");
+    this.load.image("Scroll", "/assets/inventory/inventory_background.png");
   }
   create() {
     this.cameras.main.setBackgroundColor(0x00ff00);
-    this.add.image(512, 384, "background").setAlpha(0.4);
+    this.add.image(512, 384, "background");
     this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
 
     // Create a container to hold the buttons
@@ -18,7 +18,7 @@ export class Pathfinding extends Scene {
     var buttonData = [
       {
         x: 276,
-        y: 200,
+        y: 250,
         width: 300,
         height: 80,
         color: 0x60462d,
@@ -27,7 +27,7 @@ export class Pathfinding extends Scene {
       },
       {
         x: 748,
-        y: 200,
+        y: 260,
         width: 300,
         height: 80,
         color: 0x60462d,
@@ -36,7 +36,7 @@ export class Pathfinding extends Scene {
       },
       {
         x: 276,
-        y: 320,
+        y: 370,
         width: 300,
         height: 80,
         color: 0x60462d,
@@ -45,29 +45,29 @@ export class Pathfinding extends Scene {
       },
       {
         x: 748,
-        y: 320,
+        y: 370,
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Breadth First",
+        text: "Prim’s algorithm",
         key: 4,
       },
       {
         x: 276,
-        y: 440,
+        y: 490,
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Breadth First",
+        text: "Krushkal’s algorithm",
         key: 5,
       },
       {
         x: 748,
-        y: 440,
+        y: 490,
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Breadth First",
+        text: "Floyd- Warshall",
         key: 6,
       },
     ];
@@ -104,6 +104,14 @@ export class Pathfinding extends Scene {
         this.handleButtonClick(data.key);
       });
     });
+  
+  
+    var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+    key_ESC.on('down', () => {
+        this.scene.start('TrainingRoom');
+
+    })
+  
   }
 
   handleButtonClick(key) {
@@ -126,5 +134,11 @@ export class Pathfinding extends Scene {
       default:
         break;
     }
+
+
+
   }
+  
+  
+
 }

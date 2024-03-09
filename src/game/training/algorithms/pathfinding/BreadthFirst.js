@@ -49,6 +49,13 @@ export class BreadthFirst extends Scene {
     this.createPlayerAnimation(Direction.LEFT, 70, 71);
 
     this.movePlayer();
+
+    var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+    key_ESC.on('down', () => {
+        this.scene.start('Pathfinding');
+
+    })
+    
   }
   createPlayerAnimation(name, startFrame, endFrame) {
     this.anims.create({

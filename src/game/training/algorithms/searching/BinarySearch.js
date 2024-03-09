@@ -18,7 +18,7 @@ export class BinarySearch extends Scene {
 
   preload() {
     this.load.image("background", "assets/background.png");
-    this.load.image("Scroll", "assets/tvzor-lazur.png");
+    this.load.image("Scroll", "assets/inventory/inventory_background.png");
   }
 
   create() {
@@ -26,10 +26,10 @@ export class BinarySearch extends Scene {
     this.cameras.main.setBackgroundColor(0x330000);
     this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
 
-    const title = this.add.text(512, 140, "Binary Search", {
+    const title = this.add.text(512, 180, "Binary Search", {
       fontFamily: "Broken Console",
       fontSize: "30px",
-      fill: "#ffffff",
+      fill: "#000000",
     });
     title.setOrigin(0.5, 0.5);
 
@@ -232,7 +232,7 @@ export class BinarySearch extends Scene {
           .text(x, y + 25, (i + j * 12).toString(), {
             fontSize: "16px",
             fontFamily: "Broken Console",
-            fill: "#ffffff",
+            fill: "#000000",
           })
           .setOrigin(0.5);
       }

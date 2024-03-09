@@ -58,8 +58,24 @@ import {
 import {
     BinarySearch
 } from "./game/training/algorithms/searching/BinarySearch";
-import { FourQueens } from './game/story/puzzles/fourQueens';
-import { Puzzle3 } from './game/story/puzzles/puzzle3';
+import {
+    FourQueens
+} from './game/story/puzzles/fourQueens';
+import {
+    Puzzle3
+} from './game/story/puzzles/puzzle3';
+import {
+    Pathfinding
+} from './game/training/algorithms/pathfinding/Pathfinding';
+import {
+    BreadthFirst
+} from './game/training/algorithms/pathfinding/BreadthFirst';
+import {
+    DepthFirst
+} from './game/training/algorithms/pathfinding/DepthFirst';
+import {
+    DijkstraAlgorithm
+} from './game/training/algorithms/pathfinding/DijkstraAlgorithm';
 
 
 
@@ -78,7 +94,7 @@ const config = {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
-  
+
         Boot,
         Preloader,
         MainMenu,
@@ -98,10 +114,10 @@ const config = {
         Edit,
         Puzzle3,
         FourQueens,
-         Pathfinding,
-    BreadthFirst,
-    DepthFirst,
-    DijkstraAlgorithm,
+        Pathfinding,
+        BreadthFirst,
+        DepthFirst,
+        DijkstraAlgorithm
 
     ]
 };

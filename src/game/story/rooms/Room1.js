@@ -37,9 +37,14 @@ export class Room1 extends Scene {
             this.player_y = 32; 
         }
         else if(data.sourceRoom==="Puzzle2") {
-             this.player_x = 38
+             this.player_x = 37
              this.player_y = 21
         }
+        else if(data.sourceRoom==="Puzzle3") {
+            this.player_x = 2
+            this.player_y = 20
+       }
+        
         else if (data.sourceRoom==="Room0") {
             this.player_x = 24;
             this.player_y = 38;

@@ -2,7 +2,7 @@ import { Scene } from "phaser";
 export class Searching extends Scene {
   preload() {
     this.load.image("background", "assets/background.png");
-    this.load.image("Scroll", "assets/tvzor-lazur.png");
+    this.load.image("inventory-bg", "assets/inventory/inventory_background.png");
   }
   constructor() {
     super("Searching");
@@ -11,12 +11,12 @@ export class Searching extends Scene {
   create() {
     this.add.image(512, 384, "background").setAlpha(0.8);
     this.cameras.main.setBackgroundColor(0x330000);
-    this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
+    this.add.image(512, 384, "inventory-bg").setDisplaySize(900, 600);
 
-    const title = this.add.text(512, 140, "Searching", {
+    const title = this.add.text(512, 180, "Searching", {
       fontFamily: "Broken Console",
       fontSize: "30px",
-      fill: "#ffffff",
+      fill: "#000000",
     });
     title.setOrigin(0.5, 0.5);
     this.addButtons();

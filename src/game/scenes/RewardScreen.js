@@ -6,22 +6,24 @@ export class RewardScreen extends Scene {
     constructor() {
         super('RewardScreen')
     }
-    rewardsrc = ""
+    rewardsrc = "assets/inventory/teleport.png"
     rewardName = "Rudraksha Necklace"
     rewardDesc = "This item allows you to teleport to any room you have already unlocked and visited"
+    sourceRoom = ""
+    sourcePuzzle = ""
 
     init(data) {
         this.rewardsrc = data.rewardsrc
-      //  this.rewardName = data.rewardName
-        //this.rewardDesc = data.rewardDesc
+        console.log(data.rewardsrc)
+        this.sourceRoom = data.sourceRoom
+        this.sourcePuzzle = data.sourcePuzzle
+        this.rewardName = data.rewardName
+        this.rewardDesc = data.rewardDesc
     }
 
     preload() {
-        if (this.rewardsrc) {
             this.load.image("reward", this.rewardsrc);
-        } else {
-            this.load.image("reward", "assets/inventory/teleport.png");
-        }
+        
     }
 
     create() {
@@ -65,5 +67,17 @@ export class RewardScreen extends Scene {
             align: 'center',
             wordWrap: {width: 700},
         }).setOrigin(0.5, 0);
+    
+
+        var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        key_ESC.on('down', () => {
+            this.scene.remove(RewardScreen);
+
+            this.scene.start(this.sourceRoom, {
+                sourceRoom: this.sourcePuzzle
+            });
+        })
+
     }
+    
 }

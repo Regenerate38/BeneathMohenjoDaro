@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import {STATES} from '../../states'
 
 export class Puzzle3 extends Scene {
   constructor() {

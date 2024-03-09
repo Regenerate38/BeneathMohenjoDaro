@@ -16,30 +16,23 @@ export class LinearSearch extends Scene {
 
   preload() {
     this.load.image("background", "assets/background.png");
-    this.load.image("Scroll", "assets/tvzor-lazur.png");
+    this.load.image("inventory-bg", "assets/inventory/inventory_background.png");
 
   }
 
   create() {
     this.add.image(512, 384, "background").setAlpha(0.8);
     this.cameras.main.setBackgroundColor(0x330000);
-    this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
+    this.add.image(512, 384, "inventory-bg").setDisplaySize(900, 600);
 
-    const closeButton = this.add
-      .image(120, 140, "closeButton")
-      .setDisplaySize(50, 50);
-    closeButton.setInteractive();
-    closeButton.on("pointerdown", () => {
-      closeButton.setAlpha(0.8);
-    });
 
     this.array = this.generateRandomArray(12);
 
 
-    const title = this.add.text(512, 140, "Linear Search", {
+    const title = this.add.text(512, 180, "Linear Search", {
       fontFamily: "Broken Console",
       fontSize: "30px",
-      fill: "#ffffff",
+      fill: "#000000",
     });
     title.setOrigin(0.5, 0.5);
 
@@ -234,7 +227,7 @@ export class LinearSearch extends Scene {
           .text(x, y + 25, (i + j * 12).toString(), {
             fontSize: "16px",
             fontFamily: "Broken Console",
-            fill: "#ffffff",
+            fill: "#000000",
           })
           .setOrigin(0.5);
       }

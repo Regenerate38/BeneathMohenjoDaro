@@ -4,6 +4,9 @@ import {
 import {
     Scene
 } from "phaser";
+import { RewardScreen } from "../../scenes/RewardScreen";
+
+import {STATES} from '../../states'
 
 export class Puzzle2 extends Scene {
 
@@ -183,7 +186,17 @@ export class Puzzle2 extends Scene {
     }
 
     puzzle_solved() {
-        this.scene.start("RewardScreen")
+        
+        STATES.rudraksha= true;
+        console.log("Reward2")
+        this.scene.start("RewardScreen", {
+            sourceRoom: "Room1",
+            sourcePuzzle: "Puzzle2",
+            rewardsrc: "assets/inventory/teleport.png",
+            rewardName: "Rudraksha Necklace",
+            rewardDesc: "This item allows you to teleport to any room you have already unlocked and visited."
+        })
+
     }
 
     move_rings(disk1, x_label, mode) {

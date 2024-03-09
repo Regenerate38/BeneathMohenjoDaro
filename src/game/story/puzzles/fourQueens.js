@@ -1,4 +1,6 @@
-import { Scene } from "phaser";
+import {
+  Scene
+} from "phaser";
 
 export class FourQueens extends Scene {
   constructor() {
@@ -95,7 +97,10 @@ export class FourQueens extends Scene {
     );
 
     if (visible && queenIndex === -1) {
-      this.queens.push({ row, col });
+      this.queens.push({
+        row,
+        col
+      });
     } else if (!visible && queenIndex !== -1) {
       this.queens.splice(queenIndex, 1);
     }
@@ -106,11 +111,29 @@ export class FourQueens extends Scene {
 
     if (isSolutionValid) {
       console.log("Solution is valid!");
-      this.scene.start("RewardScreen");
+      STATES.trident = true;
+      STATES.gem1 = true;
+      STATES.gem2 = true
+      STATES.gem3 = true
+      STATES.gem4 = true
+      STATES.gem5 = true
+      STATES.gem6 = true
+      STATES.gem7 = true
+      STATES.gem8 = true
+      STATES.gem9 = true
+      STATES.key2 = true
+      STATES.key3 = true
+      this.scene.start("RewardScreen", {
+        sourceRoom: "Room1",
+        sourcePuzzle: "Puzzle3",
+        rewardsrc: "assets/inventory/key2.png",
+        rewardName: "Unique Key",
+        rewardDesc: "Use this key to open some special doors in the inner area"
+      })
     } else if (!this.isValidLength) {
       console.log("Invalid Length");
     } else {
-      console.log("Solution is not valid!   ");
+      console.log("Solution is not valid!");
     }
   }
 
@@ -126,7 +149,7 @@ export class FourQueens extends Scene {
             this.queens[i].row === this.queens[j].row ||
             this.queens[i].col === this.queens[j].col ||
             Math.abs(this.queens[i].row - this.queens[j].row) ===
-              Math.abs(this.queens[i].col - this.queens[j].col)
+            Math.abs(this.queens[i].col - this.queens[j].col)
           ) {
             // Two queens threaten each other
             return false;

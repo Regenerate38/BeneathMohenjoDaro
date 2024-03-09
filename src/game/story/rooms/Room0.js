@@ -22,9 +22,9 @@ import {
 import {
     MapScreen
 } from '../../scenes/MapScreen';
-import {
-    States
-} from '../../states';
+import 
+   {STATES}
+from '../../states';
 import { Room1 } from './Room1';
 
 
@@ -101,7 +101,7 @@ export class Room0 extends Scene {
 
         })
 
-        if (States.key1) {
+        if (STATES.key1) {
             //roomZeroTileMap.removeLayer(layer[4]
 
             roomZeroTileMap.removeTile(roomZeroTileMap.getTileAt(15, 0))

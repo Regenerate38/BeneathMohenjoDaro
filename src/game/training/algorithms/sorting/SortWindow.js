@@ -30,13 +30,13 @@ export class SortWindow extends Scene {
     }
 
     preload() {
-        this.load.image("Scroll", "assets/tvzor-lazur.png");
+        this.load.image("scroll-bg", "assets/tvzor-lazur.png");
     }
 
     create() {
         this.add.image(512, 384, "background").setAlpha(0.8);
         this.cameras.main.setBackgroundColor(0x330000);
-        this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
+        this.add.image(512, 384, "scroll-bg").setDisplaySize(900, 600);
         this.array = generateRandomArray(12);
 
         const title = this.add.text(512, 140, `${this.sortAlgorithm}`, {

@@ -22,6 +22,7 @@ import {
 import {
   MapScreen
 } from './MapScreen';
+import { Room0 } from '../story/rooms/Room0';
 
 
 export class Game extends Scene {
@@ -166,9 +167,12 @@ export class Game extends Scene {
   update(_time, delta) {
       this.gridControls.update();
       this.gridPhysics.update(delta);
-        if (this.player.getTilePos().x === 20 && this.player.getTilePos().y === 7 && this.gridPhysics.facingDirection === Direction.UP) this.scene.start('Room0', {
+        if (this.player.getTilePos().x === 20 && this.player.getTilePos().y === 7 && this.gridPhysics.facingDirection === Direction.UP) {
+          this.scene.add('Room0', Room0, false);
+          this.scene.start('Room0', {
             SourceRoom: "Game"
         });
+      }
 
 
 

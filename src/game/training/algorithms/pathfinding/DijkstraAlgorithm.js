@@ -61,6 +61,13 @@ export class DijkstraAlgorithm extends Scene {
       repeat: -1,
       yoyo: true,
     });
+  
+    var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+    key_ESC.on('down', () => {
+        this.scene.start('Pathfinding');
+
+    })
+  
   }
 
   getMovableTilesPosition() {

@@ -5,9 +5,8 @@ export class Sorting extends Scene {
     super("Sorting");
   }
   preload() {
-
     this.load.image('background', 'assets/bg.png')
-    this.load.image('inventory-bg', 'assets/inventory_background.png');
+    this.load.image('inventory-bg', 'assets/inventory/inventory_background.png');
   }
   create() {
     // this.cameras.main.setBackgroundColor(0x00ff00);
@@ -26,7 +25,6 @@ export class Sorting extends Scene {
         color: 0x60462d,
         text: "Bubble Sort",
         key: 1,
-
       },
       {
         x: 748,
@@ -106,7 +104,6 @@ export class Sorting extends Scene {
 
       var buttonText = this.add.text(data.x, data.y, data.text, {
         fontSize: "20px",
-
         fontFamily: "menu_font",
         fill: "#ffffff",
       });
@@ -138,7 +135,6 @@ export class Sorting extends Scene {
   handleButtonClick(key) {
     switch (key) {
       case 1:
-
         this.scene.start("SortWindow", { sortAlgorithm: "BubbleSort"});
         break;
       case 2:

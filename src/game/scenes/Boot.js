@@ -26,6 +26,7 @@ export class Boot extends Scene {
     }
 
   create() {
-    this.scene.start("Pathfinding");
+   // this.scene.start("Pathfinding");
+        this.scene.start('Preloader')
   }
 }
