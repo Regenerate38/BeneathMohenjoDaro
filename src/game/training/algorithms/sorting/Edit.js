@@ -180,7 +180,7 @@ export class Edit extends Scene {
                                 this.isSorting = false;
                                 break;
                             case 'SelectionSort':
-                                this.isSorting = await selectionSort(this, 20, 5, 280);
+                                this.isSorting = await selectionSort(this, this.delayTime, 20, 5, 280, this.blocks);
                                 break;
                             case 'InsertionSort':
                                 this.isSorting = await insertionSort(this, 20, 5, 280);

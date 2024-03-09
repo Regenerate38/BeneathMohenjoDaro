@@ -40,7 +40,6 @@ const HeapSort = {
     8: "Sorted!"
 };
 
-
 const RadixSort = {
     1: "create 10 buckets (queues) for each digit (0 to 9)",
     2: "for each digit placing",
@@ -51,12 +50,12 @@ const RadixSort = {
 }
 
 const SelectionSort = {
-    1: "repeat (numOfElements - 1) times",
-    2: "  set the first unsorted element as the minimum",
-    3: "  for each of the unsorted elements",
-    4: "    if element < currentMinimum",
-    5: "      set element as new minimum",
-    6: "  swap minimum with first unsorted position",
+    1: "for i = 0 to array.length-1",
+    2: "  for j = i+1 to array.length-1",
+    3: "    if array[j] < array[i]",
+    4: "      swap array[i] with array[j]",
+    5: "    j++",
+    6: "  i++",
     7: "Sorted!"
 }
 
