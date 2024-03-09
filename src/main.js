@@ -58,6 +58,8 @@ import {
 import {
     BinarySearch
 } from "./game/training/algorithms/searching/BinarySearch";
+import { FourQueens } from './game/story/puzzles/fourQueens';
+import { Puzzle3 } from './game/story/puzzles/puzzle3';
 
 
 
@@ -76,7 +78,7 @@ const config = {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
-        Puzzle2,
+  
         Boot,
         Preloader,
         MainMenu,
@@ -85,7 +87,7 @@ const config = {
         TrainingRoom,
         TempScene,
         Puzzle1,
-       
+        Puzzle2,
         RewardScreen,
         Sorting,
         SortWindow,
@@ -94,6 +96,8 @@ const config = {
         BinarySearch,
         TOH,
         Edit,
+        Puzzle3,
+        FourQueens,
 
     ]
 

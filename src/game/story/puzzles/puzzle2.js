@@ -95,12 +95,16 @@ export class Puzzle2 extends Scene {
             });
             obj.on("pointerover", () => {
                 obj.setColor('#1f51ff');
+                if (this.check_puzzle(stack)) {
+                    this.puzzle_solved()
+                 }
             });
         });
 
         pop_stack_1.on('pointerdown', ()=> {
             this.popped = ringstack1.remove()
             this.poppednum = stack1.remove()
+            console.log(stack1.items, stack2.items, stack3.items)
             this.move_rings(this.popped, 'a', 1)
         })
 
@@ -108,38 +112,41 @@ export class Puzzle2 extends Scene {
             this.popped = ringstack2.remove()
             this.poppednum = stack2.remove()
             this.move_rings(this.popped, 'b', 1)
+            console.log(stack1.items, stack2.items, stack3.items)
         })
 
         pop_stack_3.on('pointerdown', ()=> {
             this.popped = ringstack3.remove()
             this.poppednum = stack3.remove()
             this.move_rings(this.popped, 'c', 1)
+            console.log(stack1.items, stack2.items, stack3.items)
         })
 
         push_stack_1.on('pointerdown', ()=> {
             ringstack1.add(this.popped);
             stack1.add(this.poppednum);
             this.move_rings(this.popped, 'a', 2);
+            console.log(stack1.items, stack2.items, stack3.items)
         })
 
         push_stack_2.on('pointerdown', ()=> {
             ringstack2.add(this.popped);
             stack2.add(this.poppednum);
             this.move_rings(this.popped, 'b', 2);
+            console.log(stack1.items, stack2.items, stack3.items)
         })
 
         push_stack_3.on('pointerdown', ()=> {
             ringstack3.add(this.popped);
             stack3.add(this.poppednum);
             this.move_rings(this.popped, 'c', 2);
+            console.log(stack1.items, stack2.items, stack3.items)
         })
-        
+       
 
 
 
-        if (this.check_puzzle(stack)) {
-           this.puzzle_solved()
-        }
+     
 
         var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         key_ESC.on('down', () => {
@@ -171,7 +178,8 @@ export class Puzzle2 extends Scene {
 
     check_puzzle(stack) {
         const allEqual = arr => arr.every(v => v === arr[0]);
-       return allEqual(stack[0].items) && allEqual(stack[1].items) && allEqual(stack[2].items);
+        console.log(allEqual(stack[0].items) && allEqual(stack[1].items) && allEqual(stack[2].items) && (stack[0].size() == stack[1].size() == stack[2].size()))
+       return allEqual(stack[0].items) && allEqual(stack[1].items) && allEqual(stack[2].items) && (stack[0].size() === stack[1].size() && stack[1].size()===stack[2].size());
     }
 
     puzzle_solved() {
@@ -202,7 +210,7 @@ export class Puzzle2 extends Scene {
                 this.tweens.add({
                     targets: disk1,
                     x: 512,
-                    y: 600,
+                    y: 150,
                     duration,
                     delay: 500,
                     ease,

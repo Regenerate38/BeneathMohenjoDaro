@@ -156,6 +156,7 @@ export class Room1 extends Scene {
         this.gridPhysics.update(delta);
      console.log(this.player.getTilePos().x, this.player.getTilePos().y)
         if (this.player.getTilePos().y<=22 && this.player.getTilePos().y>=20  && this.player.getTilePos().x === 39 && this.gridPhysics.facingDirection === Direction.RIGHT) this.scene.start('Puzzle2', {sourceRoom: "Room1"});
+        if (this.player.getTilePos().y<=21 && this.player.getTilePos().y>=19  && this.player.getTilePos().x === 0 && this.gridPhysics.facingDirection === Direction.LEFT) this.scene.start('Puzzle3', {sourceRoom: "Room1"});
 
 
     }
