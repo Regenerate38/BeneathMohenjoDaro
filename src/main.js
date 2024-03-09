@@ -7,10 +7,12 @@ import { Preloader } from "./game/scenes/Preloader";
 import { Room0 } from "./game/story/rooms/Room0";
 import { Sorting } from "./game/training/algorithms/sorting/Sorting";
 import { Edit } from "./game/training/algorithms/sorting/Edit";
-import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch";
 import { TrainingRoom } from "./game/training/TrainingRoom";
 import { TempScene } from "./game/story/TempScene";
 import { SortWindow } from "./game/training/algorithms/sorting/SortWindow";
+import { Searching } from "./game/training/algorithms/searching/Searching";
+import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch";
+import { BinarySearch } from "./game/training/algorithms/searching/BinarySearch";
 
 const config = {
   type: Phaser.AUTO,
@@ -27,7 +29,6 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [
-    Sorting,
     Boot,
     Preloader,
     MainMenu,
@@ -36,8 +37,11 @@ const config = {
     Room0,
     TrainingRoom,
     TempScene,
+    Sorting,
     SortWindow,
+    Searching,
     LinearSearch,
+    BinarySearch,
     Edit,
   ],
 };

@@ -27,6 +27,9 @@ export class TrainingRoom extends Scene {
         book1.on('pointerdown', () => {
             this.scene.start('Sorting', { txt: "Sorting" })
         })
+        book2.on('pointerdown', () => {
+            this.scene.start('Searching', { txt: "Searching" })
+        })
 
         // this.input.on('gameobjectdown', (pointer, gameObject) => {
         //     this.scene.start('TempScene', { txt: gameObject.name })

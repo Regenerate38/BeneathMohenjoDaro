@@ -1,14 +1,19 @@
 import { Scene } from "phaser";
+
 var isSearching = false;
-export class LinearSearch extends Scene {
+var boxStatus = [];
+
+export class BinarySearch extends Scene {
   constructor() {
-    super("LinearSearch");
+    super("BinarySearch");
     this.array = [];
     this.rectGroup = null;
     this.currentNumber = 0;
     this.index = -1;
     this.numberText = null;
     this.displayIndex = null;
+    this.low = 0;
+    this.high = 35;
   }
 
   preload() {
@@ -21,7 +26,7 @@ export class LinearSearch extends Scene {
     this.cameras.main.setBackgroundColor(0x330000);
     this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
 
-    const title = this.add.text(512, 140, "Linear Search", {
+    const title = this.add.text(512, 140, "Binary Search", {
       fontFamily: "Broken Console",
       fontSize: "30px",
       fill: "#ffffff",
@@ -150,32 +155,40 @@ export class LinearSearch extends Scene {
     });
     this.rectGroup = this.add.group();
     this.loadArray();
-    // this.loadArrayBoxes();
+
     var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     key_ESC.on('down', () => {
       isSearching = false;
-      this.currentNumber = 0
+      this.currentNumber = 0;
       this.scene.start("Searching");
     })
   }
 
-  updateNumberText() {
+  async updateNumberText() {
     this.numberText.setText(this.currentNumber.toString());
   }
-  loadArray() {
+
+  async loadArray() {
     this.array = this.generateRandomArray(36);
+
+    // Initialize the boxStatus array with the initial color
+    boxStatus = Array.from({ length: 36 }, () => 0x00ff);
+
     this.loadArrayBoxes();
   }
+
   generateRandomArray(size) {
-    return Array.from({ length: size }, () => Phaser.Math.Between(-99, 99));
+    const arr = Array.from({ length: size }, () =>
+      Phaser.Math.Between(-99, 99)
+    );
+    return arr.sort((a, b) => a - b);
   }
+
   updateIndex() {
-    // Destroy the existing displayIndex if it exists
     if (this.displayIndex) {
       this.displayIndex.destroy();
     }
 
-    // Create a new text element
     this.displayIndex = this.add
       .text(400, 570, this.index.toString(), {
         fontSize: "20px",
@@ -184,6 +197,7 @@ export class LinearSearch extends Scene {
       })
       .setOrigin(0.5);
   }
+
   loadArrayBoxes() {
     const arrayRows = 3;
     const arrayStartY = 270;
@@ -202,7 +216,7 @@ export class LinearSearch extends Scene {
           y,
           rectWidth + 10,
           rectHeight + 10,
-          0x00ff
+          boxStatus[i + j * 12] // Use the boxStatus array for color
         );
         rect.setOrigin(0.5);
         this.rectGroup.add(rect);
@@ -227,30 +241,67 @@ export class LinearSearch extends Scene {
 
   async searchButtonClicked() {
     isSearching = true;
-    this.searchResultIndex = await this.linearSearch(this.currentNumber);
-    console.log("Index = ", this.searchResultIndex);
-    // const boxes = this.rectGroup.getChildren();
+
+    for (let i = 0; i <= 35; i++) {
+      this.rectGroup.getChildren()[i].setFillStyle(0x00ff);
+      boxStatus[i] = 0x00ff;
+    }
+    this.searchResultIndex = await this.binarySearch(this.currentNumber);
+    this.low = 0;
+    this.high = 35;
     isSearching = false;
+    return;
   }
-  async linearSearch(target) {
+
+  async binarySearch(target) {
     const boxes = this.rectGroup.getChildren();
 
-    for (let i = 0; i < this.array.length; i++) {
-      boxes[i].setFillStyle(0x00ff00);
-      this.index = i;
+    while (this.low <= this.high) {
+      const mid = Math.floor((this.low + this.high) / 2);
+      const midValue = this.array[mid];
+      boxes[this.low].setFillStyle(0x00ff00);
+      boxes[this.high].setFillStyle(0x00ff00);
+      await this.delay(100);
+
+      boxes[mid].setFillStyle(0x000000);
+      this.index = mid;
       this.updateIndex();
       await this.delay(100);
       this.loadArrayBoxes();
-      if (this.array[i] === target) {
-        boxes[i].setFillStyle(0xaa0000);
-        // this.loadArrayBoxes();
-        return i;
+
+      if (midValue === target) {
+        this.index = mid;
+        this.updateIndex();
+        for (let i = 0; i <= 35; i++) {
+          boxes[i].setFillStyle(0xaabbcc);
+          boxStatus[i] = 0xaabbcc;
+        }
+        boxes[mid].setFillStyle(0xaa0000);
+        return mid;
+      } else if (midValue < target) {
+        for (let i = 0; i <= mid; i++) {
+          boxes[i].setFillStyle(0xaabbcc);
+          boxStatus[i] = 0xaabbcc; // Update the boxStatus array
+        }
+        this.low = mid + 1;
+      } else {
+        for (let i = 35; i >= mid; i--) {
+          boxes[i].setFillStyle(0xaabbcc);
+          boxStatus[i] = 0xaabbcc; // Update the boxStatus array
+        }
+        this.high = mid - 1;
       }
     }
+
     this.index = -1;
+    for (let i = 0; i <= 35; i++) {
+      boxes[i].setFillStyle(0xaabbcc);
+      boxStatus[i] = 0xaabbcc;
+    }
     this.updateIndex();
     return -1;
   }
+
   delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
