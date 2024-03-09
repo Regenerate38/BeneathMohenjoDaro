@@ -48,3 +48,4 @@ export class InfoPanel extends Scene {
 
 
 }
+

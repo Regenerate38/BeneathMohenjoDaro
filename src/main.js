@@ -98,9 +98,12 @@ const config = {
         Edit,
         Puzzle3,
         FourQueens,
+         Pathfinding,
+    BreadthFirst,
+    DepthFirst,
+    DijkstraAlgorithm,
 
     ]
-
 };
 
 export default new Phaser.Game(config);

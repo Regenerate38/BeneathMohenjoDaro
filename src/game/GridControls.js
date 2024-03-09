@@ -2,10 +2,10 @@ import { Direction } from "../game/direction";
 import { GridPhysics } from "./GridPhysics";
 
 export class GridControls {
-    constructor(input, gridPhysics) {
-        this.input = input
-        this.gridPhysics = gridPhysics
-      }
+  constructor(input, gridPhysics) {
+    this.input = input;
+    this.gridPhysics = gridPhysics;
+  }
 
   update() {
     const cursors = this.input.keyboard.createCursorKeys();

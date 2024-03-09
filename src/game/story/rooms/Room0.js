@@ -1,4 +1,3 @@
-
 import {
     Scene
 } from 'phaser';
@@ -197,3 +196,4 @@ export class Room0 extends Scene {
 
     }
 }
+

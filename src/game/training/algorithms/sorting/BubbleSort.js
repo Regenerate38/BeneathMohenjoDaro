@@ -113,3 +113,4 @@ async function _bubbleSort(scene, delayTime, barWidth, barSpacing, xfactor) {
   }
   await delay(delayTime);
 }
+

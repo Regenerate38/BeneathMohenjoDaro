@@ -1,3 +1,4 @@
+
 import {
     Scene
 } from 'phaser';
@@ -5,9 +6,9 @@ import { Room0 } from '../story/rooms/Room0';
 
 
 export class MainMenu extends Scene {
-    constructor() {
-        super('MainMenu');
-    }
+  constructor() {
+    super("MainMenu");
+  }
 
     create() {
         const main_menu_style = {
@@ -22,8 +23,10 @@ export class MainMenu extends Scene {
 
         const logo = this.add.image(512, 150, 'logo').setSize(200, 100);
 
-        const menu_music = this.sound.add('main_menu_theme');
-        menu_music.play();
+
+    const menu_music = this.sound.add("main_menu_theme");
+    menu_music.play();
+
 
         const continue_game = this.add.text(512, 380, 'Continue', main_menu_style).setOrigin(0.5).setInteractive();
         const newgame = this.add.text(512, 430, 'New Game', main_menu_style).setOrigin(0.5).setInteractive();
@@ -53,3 +56,4 @@ export class MainMenu extends Scene {
         });
     }
 }
+

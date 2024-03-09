@@ -1,18 +1,16 @@
 import { Scene } from "phaser";
 
-export class Sorting extends Scene {
+export class Pathfinding extends Scene {
   constructor() {
-    super("Sorting");
+    super("Pathfinding");
   }
   preload() {
-
-    this.load.image('background', 'assets/bg.png')
-    this.load.image('inventory-bg', 'assets/inventory_background.png');
+    this.load.image("Scroll", "/assets/tvzor-lazur.png");
   }
   create() {
-    // this.cameras.main.setBackgroundColor(0x00ff00);
-    this.add.image(512, 384, "background").setAlpha(0.8);
-    this.add.image(512, 378, "inventory-bg").setDisplaySize(900, 600).setAlpha(0.7);
+    this.cameras.main.setBackgroundColor(0x00ff00);
+    this.add.image(512, 384, "background").setAlpha(0.4);
+    this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
 
     // Create a container to hold the buttons
     var buttonContainer = this.add.container(0, 0);
@@ -24,9 +22,8 @@ export class Sorting extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Bubble Sort",
+        text: "Breadth First",
         key: 1,
-
       },
       {
         x: 748,
@@ -34,7 +31,7 @@ export class Sorting extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Quick Sort",
+        text: "Depth First",
         key: 2,
       },
       {
@@ -43,7 +40,7 @@ export class Sorting extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Merge sort",
+        text: "Dijkstra Algorithm",
         key: 3,
       },
       {
@@ -52,7 +49,7 @@ export class Sorting extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Heap sort",
+        text: "Breadth First",
         key: 4,
       },
       {
@@ -61,7 +58,7 @@ export class Sorting extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Radix sort",
+        text: "Breadth First",
         key: 5,
       },
       {
@@ -70,26 +67,8 @@ export class Sorting extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Selection sort",
+        text: "Breadth First",
         key: 6,
-      },
-      {
-        x: 276,
-        y: 560,
-        width: 300,
-        height: 80,
-        color: 0x60462d,
-        text: "Insertion sort",
-        key: 7,
-      },
-      {
-        x: 748,
-        y: 560,
-        width: 300,
-        height: 80,
-        color: 0x60462d,
-        text: "Shell sort",
-        key: 8,
       },
     ];
 
@@ -106,8 +85,7 @@ export class Sorting extends Scene {
 
       var buttonText = this.add.text(data.x, data.y, data.text, {
         fontSize: "20px",
-
-        fontFamily: "menu_font",
+        fontFamily: "Broken Console",
         fill: "#ffffff",
       });
       buttonText.setOrigin(0.5, 0.5);
@@ -124,42 +102,29 @@ export class Sorting extends Scene {
 
       button.on("pointerdown", () => {
         this.handleButtonClick(data.key);
-        // this.scene.start("BubbleSort");
       });
     });
-
-    var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-      key_ESC.on('down', () => {
-          this.scene.start("TrainingRoom");
-
-    })
   }
 
   handleButtonClick(key) {
     switch (key) {
       case 1:
-
-        this.scene.start("SortWindow", { sortAlgorithm: "BubbleSort"});
+        this.scene.start("BreadthFirst");
         break;
       case 2:
-        this.scene.start("SortWindow", { sortAlgorithm: "QuickSort"});
+        this.scene.start("DepthFirst");
         break;
       case 3:
-        this.scene.start("SortWindow", { sortAlgorithm: "MergeSort"});
+        this.scene.start("DijkstraAlgorithm");
         break;
       case 4:
-        this.scene.start("SortWindow", { sortAlgorithm: "HeapSort"});
+        this.scene.start("BreadthFirst");
         break;
       case 6:
-        this.scene.start("SortWindow", { sortAlgorithm: "SelectionSort"});
+        this.scene.start("BreadthFirst");
         break;
-      case 7:
-        this.scene.start("SortWindow", { sortAlgorithm: "InsertionSort"});
-        break;
-      case 8:
-        this.scene.start("SortWindow", { sortAlgorithm: "ShellSort"});
+      default:
         break;
     }
   }
-
 }
