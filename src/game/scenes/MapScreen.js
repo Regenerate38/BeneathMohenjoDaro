@@ -1,28 +1,34 @@
 import {
     Scene
 } from 'phaser';
+import { Room1 } from '../story/rooms/Room1';
+import { Room0 } from '../story/rooms/Room0';
 
 export class MapScreen extends Scene {
     constructor() {
         super('MapScreen')
     }
-    init(data) {
-        this.isTeleporting = data.isTeleporting;
-    }
-
+    sourceRoom = ""
     isTeleporting = false;
 
+    init(data) {
+        this.isTeleporting = data.isTeleporting;
+        this.sourceRoom = data.sourceRoom;
+
+    }
+   
+
     preload() {
-        this.load.image("map-bg", "assets/MapBackground.png");
-        this.load.image("bottom-room", "assets/BottomRoom.png");
-        this.load.image("center-room", "assets/CenterRoom.png");
-        this.load.image("first-lroom", "assets/FirstLRoom.png");
-        this.load.image("left-major-room", "assets/LeftMajorRoom.png");
-        this.load.image("second-room", "assets/Secondroom.png");
-        this.load.image("starting-room", "assets/startingRoom.png");
-        this.load.image("training-room", "assets/TrainingRoom.png");
-        this.load.image("triangle-room", "assets/TriangleRoom.png");
-        this.load.image("unfair-room", "assets/unfairRoom.png");
+        this.load.image("map-bg", "assets/map/MapBackground.png");
+        this.load.image("bottom-room", "assets/map/BottomRoom.png");
+        this.load.image("center-room", "assets/map/CenterRoom.png");
+        this.load.image("first-lroom", "assets/map/FirstLRoom.png");
+        this.load.image("left-major-room", "assets/map/LeftMajorRoom.png");
+        this.load.image("second-room", "assets/map/Secondroom.png");
+        this.load.image("starting-room", "assets/map/startingRoom.png");
+        this.load.image("training-room", "assets/map/TrainingRoom.png");
+        this.load.image("triangle-room", "assets/map/TriangleRoom.png");
+        this.load.image("unfair-room", "assets/map/unfairRoom.png");
 
     }
 
@@ -43,13 +49,7 @@ export class MapScreen extends Scene {
             gameObject.setTint('#000000')
         })
 
-        this.input.on('gameobjectdown', (pointer, gameObject) => {
-            if (this.isTeleporting) {
-                { this.scene.start('TrainingRoom')
-                    this.scene.remove('MapScreen')
-            }
-            }
-        })
+
         centerRoom.on('pointerout', () => {
             centerRoom.clearTint();
         })
@@ -60,6 +60,35 @@ export class MapScreen extends Scene {
                 obj.clearTint();
             });
         });
+
+
+
+        startingRoom.on('pointerdown', () => {
+            if (this.isTeleporting) {
+                if (this.sourceRoom != "Room0") {
+                    this.scene.add('Room0', Room0, false);
+                    this.scene.start('Room0', {
+                        byTeleport: true
+                    });
+                    this.scene.remove(this.sourceRoom)
+                    this.scene.remove('MapScreen')
+                }
+            }
+        })
+
+        
+        secondRoom.on('pointerdown', () => {
+            if (this.isTeleporting) {
+                if (this.sourceRoom != "Room1") {
+                    this.scene.add('Room1', Room1, false);
+                    this.scene.start('Room1', {
+                        byTeleport: true
+                    });
+                    this.scene.remove(this.sourceRoom)
+                    this.scene.remove('MapScreen')
+                }
+            }
+        })
 
         this.add.text(512, 40, "Map", {
             fontFamily: 'menu_font',
@@ -75,7 +104,7 @@ export class MapScreen extends Scene {
 
         var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         key_ESC.on('down', () => {
-            this.scene.start("Game");
+            this.scene.resume(this.sourceRoom);
             this.scene.remove("MapScreen");
 
 

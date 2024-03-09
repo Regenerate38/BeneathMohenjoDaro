@@ -1,95 +1,88 @@
-import {
-    Scene
-} from 'phaser';
+import { Scene } from "phaser";
 import {
     Player
-} from '../player';
+} from '../../player';
 import {
     Direction
-} from '../direction';
+} from '../../direction';
 import {
     GridControls
-} from "../GridControls";
+} from "../../GridControls";
 import {
     GridPhysics
-} from "../GridPhysics";
+} from "../../GridPhysics";
 import {
     InfoPanel
-} from '../InfoPanel';
+} from '../../InfoPanel';
 import {
     InventoryScreen
-} from './InventoryScreen';
+} from '../../scenes/InventoryScreen';
 import {
     MapScreen
-} from './MapScreen';
+} from '../../scenes/MapScreen';
 
+export class Room1 extends Scene {
 
-export class Game extends Scene {
     constructor() {
-        super('Game');
+        super('Room1');
+       this.player_x = 24;
+        this.player_y = 38;
     }
 
-    player_x = 10;
-    player_y = 10;
+  
 
     init(data) {
-        if (data.fromRoom) {
-            this.player_x = data.currentX;
-            this.player_y = data.currentY;
+        if(data.byTeleport) {
+            this.player_x= 3;
+            this.player_y = 32; 
         }
+        else if(data.sourceRoom==="Puzzle2") {
+             this.player_x = 38
+             this.player_y = 21
+        }
+        else if (data.sourceRoom==="Room0") {
+            this.player_x = 24;
+            this.player_y = 38;
+        }
+        console.log(data.sourceRoom)
     }
 
-    preload() {
 
-        this.load.image("tiles", "assets/Beneath_Mohenjodaro_Tiles.png");
-        this.load.tilemapTiledJSON("starting-room", "assets/starting_room.tmj");
+    preload() {
+        this.load.image("room1tiles", "assets/room_one_tiles.png");
+        this.load.tilemapTiledJSON("room_one", "assets/room_one.tmj");
         this.load.spritesheet("player", "assets/characters.png", {
             frameWidth: 26,
             frameHeight: 36,
-        });
+          });
     }
 
     create() {
 
-        const startingRoomTileMap = this.make.tilemap({
-            key: 'starting-room',
-            tileHeight: 16,
-            tileWidth: 16
-        })
+        const roomZeroTileMap = this.make.tilemap({ key: 'room_one',  tileHeight: 16, tileWidth: 16 })
 
-        const tileset = startingRoomTileMap.addTilesetImage("Beneath_Mohenjodaro_Tiles", "tiles");
-        // console.log(startingRoomTileMap.layers.length.toString());
-        for (let i = 0; i < startingRoomTileMap.layers.length; i++) {
-            const layer = startingRoomTileMap
-                .createLayer(i, "Beneath_Mohenjodaro_Tiles", 0, 0)
+        const tileset = roomZeroTileMap.addTilesetImage("room_one_tiles", "room1tiles");
+        for (let i = 0; i < roomZeroTileMap.layers.length; i++) {
+            const layer = roomZeroTileMap
+                .createLayer(i, "room_one_tiles", 0, 0)
             layer.setDepth(i);
             layer.scale = 3;
         }
 
-
-
-
-
         const playerSprite = this.add.sprite(0, 0, "player");
         playerSprite.setDepth(4);
         playerSprite.scale = 3;
-
+        
         this.cameras.main.startFollow(playerSprite, true, 0.5, 0.5);
         this.player = new Player(playerSprite, new Phaser.Math.Vector2(this.player_x, this.player_y));
 
-        this.gridPhysics = new GridPhysics(this.player, startingRoomTileMap)
+        this.gridPhysics = new GridPhysics(this.player, roomZeroTileMap)
         this.gridControls = new GridControls(this.input, this.gridPhysics)
-
+        
         this.createPlayerAnimation(Direction.UP, 94, 95);
         this.createPlayerAnimation(Direction.RIGHT, 82, 83);
         this.createPlayerAnimation(Direction.DOWN, 58, 59);
         this.createPlayerAnimation(Direction.LEFT, 70, 71);
-
-
-
-        // if(this.gridPhysics.collision_with_artifact) {console.log('works');}
-        //console.log(this.gridPhysics.collision_with_artifact)
-
 
         var key_x = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
         key_x.on('down', () => {
@@ -112,9 +105,10 @@ export class Game extends Scene {
             this.show_map();
         })
 
+        
+
+
     }
-
-
     createPlayerAnimation(name, startFrame, endFrame) {
         this.anims.create({
             key: name,
@@ -128,48 +122,43 @@ export class Game extends Scene {
         });
     }
 
-
-
     load_artifact_information() {
         const newScene = this.scene.add('InfoPanel', InfoPanel, false);
-        //        newScene.cameras.main.centerOn(this.cameras.main.centerX, this.cameras.main.centerY);
-        this.scene.pause('Game')
+        this.scene.pause('Room1')
         this.scene.launch('InfoPanel', {
             desc: this.gridPhysics.getFacingObjectDesc(),
-            retScreen: 'Game',
+            retScreen: 'Room1'
         });
 
 
     }
-
     load_inventory() {
         this.scene.add('InventoryScreen', InventoryScreen, false);
-        this.scene.pause('Game')
-        this.scene.launch('InventoryScreen', {retScreen: 'Game'})
+        this.scene.pause('Room1')
+        this.scene.launch('InventoryScreen', {retScreen: 'Room1'})
     }
 
     show_map() {
         this.scene.add('MapScreen', MapScreen, false);
-        this.scene.pause('Game')
-        this.scene.launch('MapScreen', {isTeleporting: false, sourceRoom: "Game"});
+        this.scene.pause('Room1')
+        this.scene.launch('MapScreen', {isTeleporting: false, sourceRoom: "Room1"});
     }
 
     teleport() {
         this.scene.add('MapScreen', MapScreen, false);
-        this.scene.pause('Game')
-        this.scene.launch('MapScreen', {isTeleporting: true, sourceRoom: "Game"});
+        this.scene.pause('Room1')
+        this.scene.launch('MapScreen', {isTeleporting: true, sourceRoom: "Room1"});
     }
+
 
     update(_time, delta) {
         this.gridControls.update();
         this.gridPhysics.update(delta);
+     console.log(this.player.getTilePos().x, this.player.getTilePos().y)
+        if (this.player.getTilePos().y<=22 && this.player.getTilePos().y>=20  && this.player.getTilePos().x === 39 && this.gridPhysics.facingDirection === Direction.RIGHT) this.scene.start('Puzzle2', {sourceRoom: "Room1"});
 
-        if (this.player.getTilePos().x === 20 && this.player.getTilePos().y === 7 && this.gridPhysics.facingDirection === Direction.UP) this.scene.start('Room0', {
-            SourceRoom: "Game"
-        });
-
-
-        //  console.log(this.player.getTilePos())
 
     }
+
+
 }

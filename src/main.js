@@ -1,4 +1,6 @@
-import { InfoPanel } from './game/InfoPanel';
+import {
+    InfoPanel
+} from './game/InfoPanel';
 import {
     Boot
 } from './game/scenes/Boot';
@@ -14,9 +16,21 @@ import {
 import {
     Preloader
 } from './game/scenes/Preloader';
-import { TempScene } from './game/story/TempScene';
-import { Room0 } from './game/story/rooms/Room0';
-import { TrainingRoom } from './game/training/TrainingRoom';
+import {
+    RewardScreen
+} from './game/scenes/RewardScreen';
+import {
+    TempScene
+} from './game/story/TempScene';
+import { Puzzle1 } from './game/story/puzzles/puzzle1';
+import { Puzzle2 } from './game/story/puzzles/puzzle2';
+import {
+    Room0
+} from './game/story/rooms/Room0';
+import { Room1 } from './game/story/rooms/Room1';
+import {
+    TrainingRoom
+} from './game/training/TrainingRoom';
 
 
 
@@ -41,9 +55,12 @@ const config = {
         MainMenu,
         Game,
         GameOver,
-        Room0,
         TrainingRoom,
-        TempScene
+        TempScene,
+        Puzzle1,
+        Puzzle2,
+        RewardScreen,
+
     ]
 };
 
