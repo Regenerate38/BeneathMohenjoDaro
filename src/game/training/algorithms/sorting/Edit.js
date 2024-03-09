@@ -183,7 +183,7 @@ export class Edit extends Scene {
                                 this.isSorting = await selectionSort(this, this.delayTime, 20, 5, 280, this.blocks);
                                 break;
                             case 'InsertionSort':
-                                this.isSorting = await insertionSort(this, 20, 5, 280);
+                                this.isSorting = await insertionSort(this, this.delayTime, 20, 5, 280, this.blocks);
                                 break;
                             case 'ShellSort':
                                 this.isSorting = await shellSort(this, 20, 5, 280);

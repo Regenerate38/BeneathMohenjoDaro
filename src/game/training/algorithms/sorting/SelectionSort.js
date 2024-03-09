@@ -4,7 +4,7 @@ import setDefaultBlockColor from "./utils/SetDefaultBlockColor";
 
 var activeColor = 0xaa0000;
 
-export default async function selectionSort(scene, delayTime, barWidth=40, barSpacing=10, xfactor=25, blocks) {
+export default async function selectionSort(scene, delayTime, barWidth=40, barSpacing=10, xfactor=25, blocks = null) {
   if (blocks) {
     await sortArrayWithBlocks(scene, delayTime, barWidth, barSpacing, xfactor, blocks);
     setDefaultBlockColor(blocks);

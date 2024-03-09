@@ -60,14 +60,12 @@ const SelectionSort = {
 }
 
 const InsertionSort = {
-    1: "mark first element as sorted",
-    2: "for each unsorted element X",
-    3: "  \'extract\' the element X",
-    4: "  for j = lastSortedIndex down to 0",
-    5: "    if current element j > X",
-    6: "      move sorted element to the right by 1",
-    7: "    break loop and insert X here",
-    8: "Sorted!"
+    1: "for i = 1 to array.length",
+    2: "  key = array[i], j = i-1",
+    3: "  while (j >= 0 && arr[j] > key)",
+    4: "    arr[j + 1] = arr[j]; j = j - 1;",
+    5: "  arr[j + 1] = key;",
+    6: "Sorted!"
 }
 
 const ShellSort = {

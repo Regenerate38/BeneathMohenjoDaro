@@ -134,10 +134,10 @@ export class SortWindow extends Scene {
                                 isSorting = false;
                                 break;
                             case 'SelectionSort':
-                                isSorting = await selectionSort(this);
+                                isSorting = await selectionSort(this, this.delayTime);
                                 break;
                             case 'InsertionSort':
-                                isSorting = await insertionSort(this);
+                                isSorting = await insertionSort(this, this.delayTime);
                                 break;
                             case 'ShellSort':
                                 isSorting = await shellSort(this);
