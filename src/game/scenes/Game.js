@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import {
     Scene
 } from 'phaser';
@@ -27,6 +28,59 @@ import {
 export class Game extends Scene {
     constructor() {
         super('Game');
+=======
+import { Scene } from "phaser";
+import { Player } from "../player";
+import { Direction } from "../direction";
+import { GridControls } from "../GridControls";
+import { GridPhysics } from "../GridPhysics";
+import { InfoPanel } from "../InfoPanel";
+import { InventoryScreen } from './InventoryScreen';
+import { MapScreen } from './MapScreen';
+
+export class Game extends Scene {
+  constructor() {
+    super("Game");
+  }
+
+  player_x = 10;
+  player_y = 10;
+
+  init(data) {
+    if (data.fromRoom) {
+      this.player_x = data.currentX;
+      this.player_y = data.currentY;
+    }
+  }
+
+  preload() {
+    this.load.image("tiles", "assets/Beneath_Mohenjodaro_Tiles.png");
+    this.load.tilemapTiledJSON("starting-room", "assets/starting_room.tmj");
+    this.load.spritesheet("player", "assets/characters.png", {
+      frameWidth: 26,
+      frameHeight: 36,
+    });
+  }
+
+  create() {
+    const startingRoomTileMap = this.make.tilemap({
+      key: "starting-room",
+      tileHeight: 16,
+      tileWidth: 16,
+    });
+
+    const tileset = startingRoomTileMap.addTilesetImage(
+      "Beneath_Mohenjodaro_Tiles",
+      "tiles"
+    );
+    // console.log(startingRoomTileMap.layers.length.toString());
+
+    for (let i = 0; i < startingRoomTileMap.layers.length; i++) {
+      const layer = startingRoomTileMap
+        .createLayer(i, "Beneath_Mohenjodaro_Tiles", 0, 0)
+      layer.setDepth(i);
+      layer.scale = 3;
+>>>>>>> Stashed changes
     }
 
     player_x = 10;
@@ -49,7 +103,30 @@ export class Game extends Scene {
         });
     }
 
+<<<<<<< Updated upstream
     create() {
+=======
+    // if(this.gridPhysics.collision_with_artifact) {console.log('works');}
+    //console.log(this.gridPhysics.collision_with_artifact)
+    var key_x = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+    key_x.on('down', () => {
+      if (this.gridPhysics.isFacingObject) this.load_artifact_information();
+    })
+    var key_i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+    key_i.on('down', () => {
+      this.load_inventory();
+    })
+    var key_t = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
+    key_t.on('down', () => {
+      this.teleport();
+
+    })
+    var key_tab = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+    key_tab.on('down', () => {
+      this.show_map();
+    })
+  }
+>>>>>>> Stashed changes
 
         const startingRoomTileMap = this.make.tilemap({
             key: 'starting-room',
@@ -66,6 +143,30 @@ export class Game extends Scene {
             layer.scale = 3;
         }
 
+<<<<<<< Updated upstream
+=======
+  load_inventory() {
+    this.scene.add('InventoryScreen', InventoryScreen, false);
+    this.scene.pause('Game')
+    this.scene.start('InventoryScreen');
+  }
+
+  show_map() {
+    this.scene.add('MapScreen', MapScreen, false);
+    this.scene.pause('Game')
+    this.scene.start('MapScreen', { isTeleporting: false, });
+  }
+
+  teleport() {
+    this.scene.add('MapScreen', MapScreen, false);
+    this.scene.pause('Game')
+    this.scene.start('MapScreen', { isTeleporting: true, });
+  }
+
+  update(_time, delta) {
+    this.gridControls.update();
+    this.gridPhysics.update(delta);
+>>>>>>> Stashed changes
 
 
 

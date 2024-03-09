@@ -14,7 +14,7 @@ export class MainMenu extends Scene {
             fontSize: 28,
             color: '#ffffff',
             align: 'center',
-            stroke: '#000000', 
+            stroke: '#000000',
             strokeThickness: 8,
         }
         this.add.image(512, 384, 'background');
@@ -37,10 +37,17 @@ export class MainMenu extends Scene {
             });
             obj.on("pointerover", () => {
                 obj.setStroke('#1f51ff');
+<<<<<<< Updated upstream
              });
      
         });
      
+=======
+            });
+
+        });
+
+>>>>>>> Stashed changes
 
         continue_game.on('pointerdown', () => {
             this.scene.start('Game');
