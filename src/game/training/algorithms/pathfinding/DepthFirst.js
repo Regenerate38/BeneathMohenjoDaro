@@ -102,7 +102,8 @@ export class DepthFirst extends Scene {
         ) {
           await this.delay(1);
           visited.add(`${tile.x},${tile.y}`);
-          this.tileMap.putTileAtWorldXY(searchTile, tile.x, tile.y, false);
+          if (tile.x !== end.x || tile.y !== end.y)
+            this.tileMap.putTileAtWorldXY(searchTile, tile.x, tile.y, false);
           stack.push({
             position: { x: tile.x, y: tile.y },
             path: [...current.path, currentPosition],
@@ -119,9 +120,9 @@ export class DepthFirst extends Scene {
     const startTile = { x: 1 * 16, y: 25 * 16 };
     const endTile = {
       x: 63 * 16,
-      y: 46 * 16,
+      y: 40 * 16,
     };
-    const pathTile = this.tileMap.getTileAtWorldXY(16 * 16, 25 * 16);
+    const pathTile = this.tileMap.getTileAtWorldXY(63 * 16, 40 * 16);
     const [path, moves] = await this.getAllPaths(
       startTile,
       movableTiles,
