@@ -1,4 +1,6 @@
-import { Scene } from 'phaser';
+import {
+    Scene
+} from 'phaser';
 let new_list = []
 class Block {
     constructor(scene, x, y, width, height, color, text) {
@@ -26,7 +28,7 @@ class QuestBlock {
     constructor(scene, x, y, width, height, color, text) {
         this.scene = scene;
         this.block = scene.add.rectangle(x, y, width, height, color).setInteractive();
-        this.label = scene.add.text(x-width/2+10, y, text, {
+        this.label = scene.add.text(x - width / 2 + 10, y, text, {
             fontFamily: 'menu_font',
             fontSize: 16,
             color: '#ffffff',
@@ -65,55 +67,51 @@ export class TOH extends Scene {
 
         // Create a container to hold the buttons
         var buttonContainer = this.add.container(0, 0);
-        var buttonData = [
-            {
-              x: 600,
-              y: 700,
-              width: 100,
-              height: 50,
-              color: 0x60462d,
-              text: "Next",
-              key: 1,
-            },
-        ]
+        var buttonData = [{
+            x: 600,
+            y: 700,
+            width: 100,
+            height: 50,
+            color: 0x60462d,
+            text: "Next",
+            key: 1,
+        }, ]
         buttonData.forEach((data) => {
             var button = this.add.rectangle(
-              data.x,
-              data.y,
-              data.width,
-              data.height,
-              data.color
+                data.x,
+                data.y,
+                data.width,
+                data.height,
+                data.color
             );
             button.setInteractive();
-      
+
             var buttonText = this.add.text(data.x, data.y, data.text, {
-              fontSize: "20px",
-              fontFamily: "menu_font",
-              fill: "#ffffff",
+                fontSize: "20px",
+                fontFamily: "menu_font",
+                fill: "#ffffff",
             });
             buttonText.setOrigin(0.5, 0.5);
-      
+
             buttonContainer.add([button, buttonText]);
-      
+
             button.on("pointerover", () => {
-              button.fillColor = 0x3c2920;
+                button.fillColor = 0x3c2920;
             });
-      
+
             button.on("pointerout", () => {
-              button.fillColor = data.color;
+                button.fillColor = data.color;
             });
             button.on("pointerdown", () => {
-                if (JSON.stringify(new_list) === JSON.stringify(this.pseudo_code)){
-                  console.log('sucess')
+                if (JSON.stringify(new_list) === JSON.stringify(this.pseudo_code)) {
+                    this.scene.start('Puzzle1', {solved: true})
                 } else {
-                  console.log('failure')
+                    console.log('failure')
                 }
-              });
-          });
-        
+            });
+        });
 
-        // Pseudo code
-        // let pseudo_code_list = [[1,'Push Stack'], [2, 'Check if stack is full'], [3, 'top++'], [4, 'stack[top] = value'], [5, 'Return']]
+
         let pseudo_code_list = {
             1: "from_rod",
             2: "aux_rod",
@@ -131,7 +129,7 @@ export class TOH extends Scene {
             3: "this.solve_puzzle(disk, n - 1, ___6____, ___7___, ____8____);"
         }
         for (let i = 0; i < Object.keys(pseudo_code_list).length; i++) {
-            this.pseudo_code.push(pseudo_code_list[i+1])
+            this.pseudo_code.push(pseudo_code_list[i + 1])
         }
         let pseudo_code_scrambled = [...this.pseudo_code].sort(() => Math.random() - 0.5);
         console.log(pseudo_code_scrambled[0])
@@ -143,7 +141,7 @@ export class TOH extends Scene {
             const block = new Block(this, 300, 360 + i * 40, 100, 25, 0x00ff00, `${pseudo_code_scrambled[i]}`);
             console.log(block.label.text)
             this.blocks.push(block);
-        } 
+        }
         for (let i = 0; i < pseudo_code_scrambled.length; i++) {
             const label = this.add.text(550, 360 + i * 40, `${i+1})`, {
                 fontFamily: 'menu_font',
@@ -151,16 +149,14 @@ export class TOH extends Scene {
                 color: '#000000',
                 align: 'center',
             }).setOrigin(0.5);
-        } 
-        
-        // Setting puzzle quest
+        }
+
         const quest_block = new QuestBlock(this, 500, 150, 700, 50, 0x000000, `${quest}`)
         for (let i = 0; i < 3; i++) {
             const block = new QuestBlock(this, 500, 200 + i * 50, 700, 50, 0x000000, `${quest_supplement[i+1]}`);
         }
 
 
-        // Setting item title
         const itemTitle = this.add.text(512, 150, this.booktitle, {
             fontFamily: 'menu_font',
             fontSize: 20,
@@ -168,27 +164,22 @@ export class TOH extends Scene {
             align: 'center',
             stroke: '#000000',
             strokeThickness: 1,
-            wordWrap: { width: 150 },
+            wordWrap: {
+                width: 150
+            },
         }).setOrigin(0.5, 0);
 
-        // If ESC is pressed, go to TrainingRoom
-        var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        key_ESC.on('down', () => {
-            this.scene.start('TrainingRoom');
-        });
+
     }
 
     update() {
-        // Create a new list that shows the list of pseudo code as shown in screen
         new_list = []
         for (let i = 0; i < this.blocks.length; i++) {
-            // create a list that stores the label of blocks in the order shown in screen that changes when the blocks are dragged
             for (let j = 0; j < this.blocks.length; j++) {
                 if (i == j) {
                     continue
                 }
                 if (this.blocks[i].block.y < this.blocks[j].block.y) {
-                    // swap the labels of the two blocks
                     let temp = this.blocks[i]
                     this.blocks[i] = this.blocks[j]
                     this.blocks[j] = temp
@@ -198,16 +189,7 @@ export class TOH extends Scene {
         for (let i = 0; i < this.blocks.length; i++) {
             new_list[i] = this.blocks[i].label.text
         }
-        // compare the elements of new list with the original list
-        // if (JSON.stringify(new_list) === JSON.stringify(this.pseudo_code)) {
-        //     // if the new list is the same as the original list, then show the success message
-        //     console.log('success')
-        // } else {
-        //     // if the new list is not the same as the original list, then show the failure message
-        //     console.log(new_list)
-        //     console.log(this.pseudo_code)
-        //     console.log('failure')
-        // }
-       
+
+
     }
 }

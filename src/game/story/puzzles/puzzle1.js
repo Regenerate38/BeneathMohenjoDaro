@@ -12,12 +12,14 @@ export class Puzzle1 extends Scene {
             height_c = 486
         this.height = [height_a, height_b, height_c]
         this.diff = 29
+        this.solved = false
     }
 
   
 
     init(data) {
         this.sourceRoom = data.sourceRoom
+        this.solved = data.solved
     }
 
     preload() {
@@ -62,12 +64,19 @@ export class Puzzle1 extends Scene {
 
         switch_code_button.forEach((obj) => {
             obj.on('pointerdown', () => {
-                // this.scene.start('RewardScreen');
-                this.solve_puzzle(disk1, disk2, disk3, disk4);
+                this.scene.start('TOH')
+                
+                // 
+               
                //this.solve_puzzle(disk, 3, 'A', 'C', 'B')
                 console.log("Returned last")
             });
         });
+
+        if(this.solved) {
+            this.solve_puzzle(disk1, disk2, disk3, disk4);
+        
+        }
 
         var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         key_ESC.on('down', () => {

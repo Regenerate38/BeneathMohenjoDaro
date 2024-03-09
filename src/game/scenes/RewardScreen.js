@@ -34,6 +34,9 @@ export class RewardScreen extends Scene {
             strokeThickness: 1,
         }).setOrigin(0.5)
 
+        const success_music = this.sound.add('success');
+        success_music.play();
+
         this.add.text(512, 80, "You received", {
             fontFamily: 'menu_font',
             fontSize: 30,

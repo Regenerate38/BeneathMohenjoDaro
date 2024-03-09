@@ -30,9 +30,6 @@ import { Room1 } from './Room1';
 
 
 export class Room0 extends Scene {
-
-
-export class Room0 extends Scene {
     constructor() {
         super('Room0');
     }

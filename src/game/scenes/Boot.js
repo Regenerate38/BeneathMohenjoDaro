@@ -14,6 +14,9 @@ export class Boot extends Scene
         this.load.audio('main_menu_theme', [
             'assets/main_menu_music.mp3'
         ]);
+        this.load.audio('success', [
+            'assets/success.mp3'
+        ]);
        
     }
 

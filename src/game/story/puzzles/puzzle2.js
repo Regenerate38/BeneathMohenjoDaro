@@ -14,6 +14,8 @@ export class Puzzle2 extends Scene {
             height_c = 486
         this.height = [height_a, height_b, height_c]
         this.diff = 28
+        this.popped = {}
+        this.poppednum = 0;
     }
 
     init(data) {
@@ -34,8 +36,7 @@ export class Puzzle2 extends Scene {
 
 
     create() {
-        var popped = {}
-        var poppednum = 0;
+      
 
         this.add.image(512, 384, "inventory-bg")
         this.add.image(512, 520, 'base').setScale(0.5).setOrigin(0.5, 1)
@@ -69,109 +70,75 @@ export class Puzzle2 extends Scene {
         this.create_puzzle(stack, ring, ringstack)
 
 
-        const switch_code_img = this.add.image(100, 650, 'code').setScale(0.1).setInteractive()
-        const switch_code_text = this.add.text(150, 640, "Switch to Block Code", {
+        const button_style = {
             color: '#000000',
             fontFamily: 'menu_font',
-            fontSize: 20,
-        }).setInteractive()
-        const difficulty_text = this.add.text(650, 640, "Puzzle difficulty: EASY", {
-            color: '#000000',
-            fontFamily: 'menu_font',
-            fontSize: 20,
-        })
-        const switch_code_button = [switch_code_img, switch_code_text];
+            fontSize: 22,
+        }
+        const push_stack_1 = this.add.text(262, 560, "Push To Stack 1", button_style).setInteractive().setOrigin(0.5)
 
-        switch_code_button.forEach((obj) => {
-            obj.on('pointerdown', () => {
-                //this.scene.start('RewardScreen');
-                console.log('It works')
+        const pop_stack_1 = this.add.text(262, 600, "Pop Stack 1", button_style).setInteractive().setOrigin(0.5)
+
+        const push_stack_2 = this.add.text(512, 560, "Push To Stack 2", button_style).setInteractive().setOrigin(0.5)
+
+        const pop_stack_2 = this.add.text(512, 600, "Pop Stack 2", button_style).setInteractive().setOrigin(0.5)
+        
+        const push_stack_3 = this.add.text(762, 560, "Push To Stack 3", button_style).setInteractive().setOrigin(0.5)
+
+        const pop_stack_3 = this.add.text(762, 600, "Pop Stack 3", button_style).setInteractive().setOrigin(0.5)
+      
+        const buttons = [push_stack_1, push_stack_2, push_stack_3, pop_stack_1, pop_stack_2, pop_stack_3]
+
+        buttons.forEach((obj) => {
+            obj.on('pointerout', () => {
+                obj.setColor('#000000');
+            });
+            obj.on("pointerover", () => {
+                obj.setColor('#1f51ff');
             });
         });
 
+        pop_stack_1.on('pointerdown', ()=> {
+            this.popped = ringstack1.remove()
+            this.poppednum = stack1.remove()
+            this.move_rings(this.popped, 'a', 1)
+        })
 
-        popped = ringstack1.remove()
-        poppednum = stack1.remove()
-        this.move_rings(popped, 'a', 1)
-        ringstack2.add(popped);
-        stack2.add(poppednum);
-        this.move_rings(popped, 'b', 2);
+        pop_stack_2.on('pointerdown', ()=> {
+            this.popped = ringstack2.remove()
+            this.poppednum = stack2.remove()
+            this.move_rings(this.popped, 'b', 1)
+        })
 
-        popped = ringstack1.remove()
-        poppednum = stack1.remove()
-        this.move_rings(popped, 'a', 1)
-        ringstack3.add(popped);
-        stack3.add(poppednum);
-        this.move_rings(popped, 'c', 2);
+        pop_stack_3.on('pointerdown', ()=> {
+            this.popped = ringstack3.remove()
+            this.poppednum = stack3.remove()
+            this.move_rings(this.popped, 'c', 1)
+        })
 
-        popped = ringstack2.remove()
-        poppednum = stack2.remove()
-        this.move_rings(popped, 'b', 1)
-        ringstack1.add(popped);
-        stack1.add(poppednum);
-        this.move_rings(popped, 'a', 2);
+        push_stack_1.on('pointerdown', ()=> {
+            ringstack1.add(this.popped);
+            stack1.add(this.poppednum);
+            this.move_rings(this.popped, 'a', 2);
+        })
 
+        push_stack_2.on('pointerdown', ()=> {
+            ringstack2.add(this.popped);
+            stack2.add(this.poppednum);
+            this.move_rings(this.popped, 'b', 2);
+        })
 
-        popped = ringstack2.remove()
-        poppednum = stack2.remove()
-        this.move_rings(popped, 'b', 1)
-        ringstack1.add(popped);
-        stack1.add(poppednum);
-        this.move_rings(popped, 'a', 2);
-
-        popped = ringstack2.remove()
-        poppednum = stack2.remove()
-        this.move_rings(popped, 'b', 1)
-        ringstack1.add(popped);
-        stack1.add(poppednum);
-        this.move_rings(popped, 'a', 2);
-
-
-        popped = ringstack3.remove()
-        poppednum = stack3.remove()
-        this.move_rings(popped, 'c', 1)
-        ringstack1.add(popped);
-        stack1.add(poppednum);
-        this.move_rings(popped, 'a', 2);
+        push_stack_3.on('pointerdown', ()=> {
+            ringstack3.add(this.popped);
+            stack3.add(this.poppednum);
+            this.move_rings(this.popped, 'c', 2);
+        })
+        
 
 
-        popped = ringstack3.remove()
-        poppednum = stack3.remove()
-        this.move_rings(popped, 'c', 1)
-        ringstack1.add(popped);
-        stack1.add(poppednum);
-        this.move_rings(popped, 'a', 2);
-
-        popped = ringstack3.remove()
-        poppednum = stack3.remove()
-        this.move_rings(popped, 'c', 1)
-        ringstack2.add(popped);
-        stack2.add(poppednum);
-        this.move_rings(popped, 'b', 2);
-
-        popped = ringstack1.remove()
-        poppednum = stack1.remove()
-        this.move_rings(popped, 'a', 1)
-        ringstack3.add(popped);
-        stack3.add(poppednum);
-        this.move_rings(popped, 'c', 2);
-
-        popped = ringstack1.remove()
-        poppednum = stack1.remove()
-        this.move_rings(popped, 'a', 1)
-        ringstack3.add(popped);
-        stack3.add(poppednum);
-        this.move_rings(popped, 'c', 2);
-
-        popped = ringstack1.remove()
-        poppednum = stack1.remove()
-        this.move_rings(popped, 'a', 1)
-        ringstack3.add(popped);
-        stack3.add(poppednum);
-        this.move_rings(popped, 'c', 2);
 
         if (this.check_puzzle(stack)) {
-           setTimeout(()=>{this.puzzle_solved()}, 3000)
+           this.puzzle_solved()
         }
 
         var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
@@ -253,7 +220,7 @@ export class Puzzle2 extends Scene {
                 x: x_pos,
                 y: this.height[x_label],
                 duration,
-                delay: 2500,
+                delay: 500,
                 ease,
             })
             this.height[x_label] -= this.diff

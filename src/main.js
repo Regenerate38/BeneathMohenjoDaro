@@ -20,25 +20,44 @@ import {
     RewardScreen
 } from './game/scenes/RewardScreen';
 import {
-    TempScene
-} from './game/story/TempScene';
-import { Puzzle1 } from './game/story/puzzles/puzzle1';
-import { Puzzle2 } from './game/story/puzzles/puzzle2';
+    Puzzle1
+} from './game/story/puzzles/puzzle1';
+import {
+    Puzzle2
+} from './game/story/puzzles/puzzle2';
 import {
     Room0
 } from './game/story/rooms/Room0';
-import { Room1 } from './game/story/rooms/Room1';
+import {
+    Room1
+} from './game/story/rooms/Room1';
 import {
     TrainingRoom
 } from './game/training/TrainingRoom';
-import { Sorting } from "./game/training/algorithms/sorting/Sorting";
-import { Edit } from "./game/training/algorithms/sorting/Edit";
-import { TempScene } from "./game/story/TempScene";
-import { TOH } from "./game/story/puzzles/TOH";
-import { SortWindow } from "./game/training/algorithms/sorting/SortWindow";
-import { Searching } from "./game/training/algorithms/searching/Searching";
-import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch";
-import { BinarySearch } from "./game/training/algorithms/searching/BinarySearch";
+import {
+    Sorting
+} from "./game/training/algorithms/sorting/Sorting";
+import {
+    Edit
+} from "./game/training/algorithms/sorting/Edit";
+import {
+    TempScene
+} from "./game/story/TempScene";
+import {
+    TOH
+} from "./game/story/puzzles/TOH";
+import {
+    SortWindow
+} from "./game/training/algorithms/sorting/SortWindow";
+import {
+    Searching
+} from "./game/training/algorithms/searching/Searching";
+import {
+    LinearSearch
+} from "./game/training/algorithms/searching/LinearSearch";
+import {
+    BinarySearch
+} from "./game/training/algorithms/searching/BinarySearch";
 
 
 
@@ -57,6 +76,7 @@ const config = {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
+        Puzzle2,
         Boot,
         Preloader,
         MainMenu,
@@ -65,15 +85,15 @@ const config = {
         TrainingRoom,
         TempScene,
         Puzzle1,
-        Puzzle2,
+       
         RewardScreen,
-          Sorting,
-    SortWindow,
-    Searching,
-    LinearSearch,
-    BinarySearch,
+        Sorting,
+        SortWindow,
+        Searching,
+        LinearSearch,
+        BinarySearch,
         TOH,
-    Edit,
+        Edit,
 
     ]
 
