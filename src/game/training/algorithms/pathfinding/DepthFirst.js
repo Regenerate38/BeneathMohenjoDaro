@@ -1,7 +1,6 @@
 import { Scene } from "phaser";
 import { Player } from "../../../player";
 import { Direction } from "../../../direction";
-import { GridControls } from "../../../GridControls";
 import { GridPhysics } from "../../../GridPhysics";
 
 export class DepthFirst extends Scene {
@@ -42,7 +41,7 @@ export class DepthFirst extends Scene {
     this.player = new Player(playerSprite, new Phaser.Math.Vector2(1, 25), 1);
 
     this.gridPhysics = new GridPhysics(this.player, this.tileMap, 1);
-    this.gridControls = new GridControls(this.input, this.gridPhysics);
+    // this.gridControls = new GridControls(this.input, this.gridPhysics);
 
     this.createPlayerAnimation(Direction.UP, 94, 95);
     this.createPlayerAnimation(Direction.RIGHT, 82, 83);
@@ -158,7 +157,6 @@ export class DepthFirst extends Scene {
     return array.some((item) => item.x === value.x && item.y === value.y);
   }
   update(_time, delta) {
-    this.gridControls.update();
     this.gridPhysics.update(delta);
   }
   delay(ms) {

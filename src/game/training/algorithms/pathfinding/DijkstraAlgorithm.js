@@ -3,9 +3,9 @@ import { Player } from "../../../player";
 import { Direction } from "../../../direction";
 import { GridPhysics } from "../../../GridPhysics";
 
-export class BreadthFirst extends Scene {
+export class DijkstraAlgorithm extends Scene {
   constructor() {
-    super("BreadthFirst");
+    super("DijkstraAlgorithm");
   }
 
   preload() {
@@ -76,11 +76,11 @@ export class BreadthFirst extends Scene {
 
   async getAllPaths(start, movableTiles, end) {
     const searchTile = this.tileMap.getTileAtWorldXY(1 * 16, 25 * 16);
-    const queue = [{ position: start, path: [], controls: [] }];
+    const stack = [{ position: start, path: [], controls: [] }];
     const visited = new Set();
 
-    while (queue.length > 0) {
-      const current = queue.shift();
+    while (stack.length > 0) {
+      const current = stack.pop();
       const currentPosition = current.position;
 
       if (currentPosition.x === end.x && currentPosition.y === end.y) {
@@ -103,7 +103,7 @@ export class BreadthFirst extends Scene {
           visited.add(`${tile.x},${tile.y}`);
           if (tile.x !== end.x || tile.y !== end.y)
             this.tileMap.putTileAtWorldXY(searchTile, tile.x, tile.y, false);
-          queue.push({
+          stack.push({
             position: { x: tile.x, y: tile.y },
             path: [...current.path, currentPosition],
             controls: [...current.controls, tile.dir],

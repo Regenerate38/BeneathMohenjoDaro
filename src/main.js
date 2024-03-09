@@ -17,6 +17,7 @@ import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch"
 import { Pathfinding } from "./game/training/algorithms/pathfinding/Pathfinding";
 import { BreadthFirst } from "./game/training/algorithms/pathfinding/BreadthFirst";
 import { DepthFirst } from "./game/training/algorithms/pathfinding/DepthFirst";
+import { DijkstraAlgorithm } from "./game/training/algorithms/pathfinding/DijkstraAlgorithm";
 
 const config = {
   type: Phaser.AUTO,
@@ -51,6 +52,7 @@ const config = {
     Pathfinding,
     BreadthFirst,
     DepthFirst,
+    DijkstraAlgorithm,
   ],
 };
 

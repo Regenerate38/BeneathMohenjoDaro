@@ -40,7 +40,7 @@ export class Pathfinding extends Scene {
         width: 300,
         height: 80,
         color: 0x60462d,
-        text: "Breadth First",
+        text: "Dijkstra Algorithm",
         key: 3,
       },
       {
@@ -115,7 +115,7 @@ export class Pathfinding extends Scene {
         this.scene.start("DepthFirst");
         break;
       case 3:
-        this.scene.start("BreadthFirst");
+        this.scene.start("DijkstraAlgorithm");
         break;
       case 4:
         this.scene.start("BreadthFirst");
