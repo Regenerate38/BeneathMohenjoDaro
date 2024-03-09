@@ -1,184 +1,102 @@
-import { Scene } from "phaser";
+import createBars from "./CreateBars";
+import delay from "./utils/Delay";
+import setDefaultBlockColor from "./utils/SetDefaultBlockColor";
 
-var isSorting = false;
+var activeColor = 0xaa0000;
 
-export class InsertionSort extends Scene {
-  constructor() {
-    super("InsertionSort");
-    this.array = [];
-    this.barGroup = null;
+export default async function insertionSort(scene, delayTime, barWidth = 40, barSpacing = 10, xfactor = 25, blocks = null) {
+  if (blocks) {
+    await sortArrayWithBlocks(scene, delayTime, barWidth, barSpacing, xfactor, blocks)
+  } else {
+    await sortArray(scene, delayTime, barWidth, barSpacing, xfactor);
   }
+  return false;
+}
 
-  preload() {
-    this.load.image("Scroll", "/assets/tvzor-lazur.png");
+async function sortArrayWithBlocks(scene, delayTime, barWidth, barSpacing, xfactor, blocks) {
+  const bars = scene.barGroup.getChildren();
+  await _insertionSortWithBlocks(scene, delayTime, scene.array, barWidth, barSpacing, xfactor, blocks);
+  for (var i = 0; i < 12; i++) {
+    bars[i].setFillStyle(0x27ae60);
   }
+  setDefaultBlockColor(blocks);
+  blocks[5].setColor(activeColor);
+  await delay(delayTime);
+}
 
-  create() {
-    this.add.image(512, 384, "background").setAlpha(0.8);
-    this.cameras.main.setBackgroundColor(0x330000);
-    this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
-    const closeButton = this.add
-      .image(120, 140, "closeButton")
-      .setDisplaySize(50, 50);
-    closeButton.setInteractive();
-    closeButton.on("pointerdown", () => {
-      closeButton.setAlpha(0.8);
-      this.scene.start("Sorting");
-    });
+async function _insertionSortWithBlocks(scene, delayTime, arr, barWidth, barSpacing, xfactor, blocks) {
+  const bars = scene.barGroup.getChildren();
+  setDefaultBlockColor(blocks);
+  blocks[0].setColor(activeColor);
+  await delay(delayTime);
+  for (let i = 1; i < arr.length; i++) {
+    setDefaultBlockColor(blocks);
+    blocks[1].setColor(activeColor);
+    await delay(delayTime);
+    let key = arr[i];
+    let j = i - 1;
 
-    this.array = this.generateRandomArray(12); // Adjust the array size
+    setDefaultBlockColor(blocks);
+    blocks[2].setColor(activeColor);
+    await delay(delayTime);
+    while (j >= 0 && arr[j] > key) {
+      // Visualize: Change bar colors
+      setDefaultBlockColor(blocks);
+      blocks[3].setColor(activeColor);
+      await delay(delayTime);
+      bars[j + 1].setFillStyle(0xff0000);
+      bars[j].setFillStyle(0xff0000);
+      await delay(delayTime);
 
-    const title = this.add.text(512, 140, "Insertion Sort", {
-      fontFamily: "Broken Console",
-      fontSize: "30px",
-      fill: "#ffffff",
-    });
-    title.setOrigin(0.5, 0.5);
-
-    this.createButtons();
-
-    this.barGroup = this.add.group();
-    this.createBars();
-  }
-
-  createButtons() {
-    var buttonContainer = this.add.container(0, 0);
-    var buttonData = [
-      {
-        x: 276,
-        y: 620,
-        width: 300,
-        height: 40,
-        color: 0x60462d,
-        text: "Sort",
-      },
-      {
-        x: 748,
-        y: 620,
-        width: 300,
-        height: 40,
-        color: 0x60462d,
-        text: "Randomize",
-      },
-    ];
-    buttonData.forEach((data, index) => {
-      var button = this.add.rectangle(
-        data.x,
-        data.y,
-        data.width,
-        data.height,
-        data.color
-      );
-      button.setInteractive();
-
-      var buttonText = this.add.text(data.x, data.y, data.text, {
-        fontSize: "20px",
-        fontFamily: "Broken Console",
-        fill: "#ffffff",
-      });
-      buttonText.setOrigin(0.5, 0.5);
-
-      buttonContainer.add([button, buttonText]);
-
-      button.on("pointerover", () => {
-        button.fillColor = 0x3c2920;
-      });
-
-      button.on("pointerout", () => {
-        button.fillColor = data.color;
-      });
-      button.on("pointerdown", () => {
-        if (index === 0 && !isSorting) {
-          this.sortArray();
-        } else if (index === 1 && !isSorting) {
-          this.randomizeArray();
-        }
-      });
-    });
-  }
-
-  async sortArray() {
-    isSorting = true;
-    const bars = this.barGroup.getChildren();
-
-    await this.insertionSort(this.array);
-    for (var i = 0; i < 12; i++) {
-      bars[i].setFillStyle(0x27ae60);
+      arr[j + 1] = arr[j];
+      j = j - 1;
+      setDefaultBlockColor(blocks);
+      blocks[2].setColor(activeColor);
+      await delay(delayTime);
     }
-    isSorting = false;
+    setDefaultBlockColor(blocks);
+    blocks[4].setColor(activeColor);
+    await delay(delayTime);
+    arr[j + 1] = key;
+
+    await delay(delayTime);
+    createBars(scene, scene.array, scene.barGroup, barWidth, barSpacing, xfactor);
+    await delay(delayTime);
   }
+}
 
-  async insertionSort(arr) {
-    const bars = this.barGroup.getChildren();
 
-    for (let i = 1; i < arr.length; i++) {
-      let key = arr[i];
-      let j = i - 1;
+async function sortArray(scene, delayTime, barWidth, barSpacing, xfactor) {
+  const bars = scene.barGroup.getChildren();
+  await _insertionSort(scene, delayTime, scene.array, barWidth, barSpacing, xfactor);
+  for (var i = 0; i < 12; i++) {
+    bars[i].setFillStyle(0x27ae60);
+  }
+}
 
-      while (j >= 0 && arr[j] > key) {
-        // Visualize: Change bar colors
-        bars[j + 1].setFillStyle(0xff0000);
-        bars[j].setFillStyle(0xff0000);
-        await this.delay(200);
+async function _insertionSort(scene, delayTime, arr, barWidth, barSpacing, xfactor) {
+  const bars = scene.barGroup.getChildren();
 
-        arr[j + 1] = arr[j];
-        j = j - 1;
-      }
-      arr[j + 1] = key;
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
 
-      // Reset bar colors after insertion
-      bars.forEach((bar) => {
-        bar.setFillStyle(0x3498db); // Blue
-      });
-      await this.delay(200);
-      this.createBars();
+    while (j >= 0 && arr[j] > key) {
+      // Visualize: Change bar colors
+      bars[j + 1].setFillStyle(0xff0000);
+      bars[j].setFillStyle(0xff0000);
+      await delay(delayTime);
+
+      arr[j + 1] = arr[j];
+      j = j - 1;
     }
-  }
+    arr[j + 1] = key;
 
-  randomizeArray() {
-    this.array = this.generateRandomArray(12);
-    this.createBars();
-  }
-
-  generateRandomArray(size) {
-    return Array.from({ length: size }, () => Phaser.Math.Between(10, 100));
-  }
-
-  createBars() {
-    const barWidth = 40;
-    const barSpacing = 10;
-    const startX =
-      (this.sys.game.config.width -
-        (barWidth + barSpacing) * this.array.length) /
-      2;
-
-    const maxHeight = Math.max(...this.array);
-    const startY = this.sys.game.config.height - maxHeight;
-
-    this.barGroup.clear(true, true);
-
-    this.array.forEach((value, index) => {
-      const rect = this.add.rectangle(
-        startX + (barWidth + barSpacing) * index,
-        580,
-        barWidth,
-        value * 4,
-        0x3498db
-      );
-      rect.setOrigin(0.5, 1);
-      this.barGroup.add(rect);
-
-      const text = this.add.text(rect.x, rect.y, value.toString(), {
-        fontSize: "16px",
-        fill: "#ffffff",
-      });
-      text.setOrigin(0.5, 1);
-      rect.setData("index", index);
-      rect.setData("value", value);
+    // Reset bar colors after insertion
+    bars.forEach((bar) => {
+      bar.setFillStyle(0x3498db); // Blue
     });
-  }
-
-  delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    await delay(delayTime);
+    createBars(scene, scene.array, scene.barGroup, barWidth, barSpacing, xfactor);
   }
 }

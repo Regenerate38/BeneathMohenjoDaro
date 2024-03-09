@@ -5,12 +5,14 @@ export class Sorting extends Scene {
     super("Sorting");
   }
   preload() {
-    this.load.image("Scroll", "../../../../public/assets/tvzor-lazur.png");
+
+    this.load.image('background', 'assets/bg.png')
+    this.load.image('inventory-bg', 'assets/inventory_background.png');
   }
   create() {
-    this.cameras.main.setBackgroundColor(0x00ff00);
-    this.add.image(512, 384, "background").setAlpha(0.4);
-    this.add.image(512, 384, "Scroll").setDisplaySize(900, 600);
+    // this.cameras.main.setBackgroundColor(0x00ff00);
+    this.add.image(512, 384, "background").setAlpha(0.8);
+    this.add.image(512, 378, "inventory-bg").setDisplaySize(900, 600).setAlpha(0.7);
 
     // Create a container to hold the buttons
     var buttonContainer = this.add.container(0, 0);
@@ -24,7 +26,7 @@ export class Sorting extends Scene {
         color: 0x60462d,
         text: "Bubble Sort",
         key: 1,
-        // sceneKey: "BubbleSort",
+
       },
       {
         x: 748,
@@ -104,7 +106,8 @@ export class Sorting extends Scene {
 
       var buttonText = this.add.text(data.x, data.y, data.text, {
         fontSize: "20px",
-        fontFamily: "Broken Console",
+
+        fontFamily: "menu_font",
         fill: "#ffffff",
       });
       buttonText.setOrigin(0.5, 0.5);
@@ -124,31 +127,39 @@ export class Sorting extends Scene {
         // this.scene.start("BubbleSort");
       });
     });
+
+    var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+      key_ESC.on('down', () => {
+          this.scene.start("TrainingRoom");
+
+    })
   }
 
   handleButtonClick(key) {
     switch (key) {
       case 1:
-        this.scene.start("BubbleSort");
+
+        this.scene.start("SortWindow", { sortAlgorithm: "BubbleSort"});
         break;
       case 2:
-        this.scene.start("QuickSort");
+        this.scene.start("SortWindow", { sortAlgorithm: "QuickSort"});
         break;
       case 3:
-        this.scene.start("MergeSort");
+        this.scene.start("SortWindow", { sortAlgorithm: "MergeSort"});
         break;
       case 4:
-        this.scene.start("HeapSort");
+        this.scene.start("SortWindow", { sortAlgorithm: "HeapSort"});
         break;
       case 6:
-        this.scene.start("SelectionSort");
+        this.scene.start("SortWindow", { sortAlgorithm: "SelectionSort"});
         break;
       case 7:
-        this.scene.start("InsertionSort");
+        this.scene.start("SortWindow", { sortAlgorithm: "InsertionSort"});
         break;
       case 8:
-        this.scene.start("ShellSort");
+        this.scene.start("SortWindow", { sortAlgorithm: "ShellSort"});
         break;
     }
   }
+
 }
