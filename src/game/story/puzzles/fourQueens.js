@@ -1,6 +1,8 @@
 import {
   Scene
 } from "phaser";
+import {STATES} from '../../states'
+
 
 export class FourQueens extends Scene {
   constructor() {
