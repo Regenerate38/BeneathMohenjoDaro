@@ -10,7 +10,7 @@ export default async function mergeSort(scene, delayTime = 500, barWidth, barSpa
   return false;
 }
 
-async function sortArrayWithBlocks(scene, barWidth, barSpacing, xfactor, blocks) {
+async function sortArrayWithBlocks(scene, delayTime, barWidth, barSpacing, xfactor, blocks) {
   const bars = scene.barGroup.getChildren();
   await _mergeSortWithBlocks(scene, delayTime, scene.array, 0, scene.array.length - 1, barWidth, barSpacing, xfactor, blocks);
   for (var i = 0; i < 14; i++) {
@@ -151,34 +151,30 @@ async function merge(scene, delayTime, arr, l, m, r, barWidth, barSpacing, xfact
     if (L[i] <= R[j]) {
       arr[k] = L[i];
       i++;
-      for (let a = 0; a < n1; a++) {
-        L[a] = arr[l + a]
-      };
     } else {
-      arr[m+1+j] = arr[k];
       arr[k] = R[j];
       j++;
-      for (let a = 0; a < n2; a++) {
-        R[a] = arr[m + 1 + a];
-      }
     }
     // createBars(scene, scene.array, scene.barGroup, barWidth, barSpacing, xfactor);
     // await delay(delayTime);
     k++;
+    console.log(arr)
+    console.log(L)
+    console.log(R)
   }
   
-  while (i < n1) {
-    arr[k] = L[i];
-    i++;
-    k++;
-  }
+  // while (i < n1) {
+  //   arr[k] = L[i];
+  //   i++;
+  //   k++;
+  // }
   
-  while (j < n2) {
-    arr[m+1+j] = arr[k];
-    arr[k] = R[j];
-    j++;
-    k++;
-  }
+  // while (j < n2) {
+  //   arr[m+1+j] = arr[k];
+  //   arr[k] = R[j];
+  //   j++;
+  //   k++;
+  // }
 
   // Reset colors after merging
   bars.forEach(bar => {

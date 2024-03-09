@@ -13,15 +13,6 @@ export class Room0 extends Scene {
     player_y = 19;
 
     init(data) {
-<<<<<<< Updated upstream
-        if(data.byTeleport) {
-        this.player_x= 20;
-        this.player_y = 14; 
-    }
-    }
-
-    preload(){
-=======
         if (data.byTeleport) {
             this.player_x = 20;
             this.player_y = 14;
@@ -29,7 +20,6 @@ export class Room0 extends Scene {
     }
 
     preload() {
->>>>>>> Stashed changes
         this.load.image("room0tiles", "assets/room_zero_tiles.png");
         this.load.tilemapTiledJSON("room_zero", "assets/room_zero.tmj");
         this.load.spritesheet("player", "assets/characters.png", {
@@ -87,12 +77,7 @@ export class Room0 extends Scene {
     update(_time, delta) {
         this.gridControls.update();
         this.gridPhysics.update(delta);
-<<<<<<< Updated upstream
-        if(this.player.getTilePos().x ===14 && this.player.getTilePos().y === 19 && this.gridPhysics.facingDirection === Direction.DOWN) 
-        {this.scene.start('Game', {currentX: 20, currentY:7, fromRoom: true}) }
-=======
         if (this.player.getTilePos().x === 14 && this.player.getTilePos().y === 19 && this.gridPhysics.facingDirection === Direction.DOWN) this.scene.start('Game')
->>>>>>> Stashed changes
 
     }
 }

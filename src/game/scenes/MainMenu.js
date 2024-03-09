@@ -37,17 +37,10 @@ export class MainMenu extends Scene {
             });
             obj.on("pointerover", () => {
                 obj.setStroke('#1f51ff');
-<<<<<<< Updated upstream
-             });
-     
-        });
-     
-=======
             });
 
         });
 
->>>>>>> Stashed changes
 
         continue_game.on('pointerdown', () => {
             this.scene.start('Game');
