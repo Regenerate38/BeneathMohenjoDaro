@@ -130,40 +130,46 @@ export class Game extends Scene {
 
 
 
-  load_artifact_information() {
-      const newScene = this.scene.add('InfoPanel', InfoPanel, false);
-      //        newScene.cameras.main.centerOn(this.cameras.main.centerX, this.cameras.main.centerY);
-      this.scene.pause('Game')
-      this.scene.launch('InfoPanel', {
-          desc: this.gridPhysics.getFacingObjectDesc()
-      });
+
+    load_artifact_information() {
+        const newScene = this.scene.add('InfoPanel', InfoPanel, false);
+        //        newScene.cameras.main.centerOn(this.cameras.main.centerX, this.cameras.main.centerY);
+        this.scene.pause('Game')
+        this.scene.launch('InfoPanel', {
+            desc: this.gridPhysics.getFacingObjectDesc(),
+            retScreen: 'Game',
+        });
+
 
 
   }
 
-  load_inventory() {
-      this.scene.add('InventoryScreen', InventoryScreen, false);
-      this.scene.pause('Game')
-      this.scene.start('InventoryScreen');
-  }
 
-  show_map() {
-      this.scene.add('MapScreen', MapScreen, false);
-      this.scene.pause('Game')
-      this.scene.start('MapScreen', {isTeleporting: false,});
-  }
+    load_inventory() {
+        this.scene.add('InventoryScreen', InventoryScreen, false);
+        this.scene.pause('Game')
+        this.scene.launch('InventoryScreen', {retScreen: 'Game'})
+    }
 
-  teleport() {
-      this.scene.add('MapScreen', MapScreen, false);
-      this.scene.pause('Game')
-      this.scene.start('MapScreen', {isTeleporting: true,});
-  }
+    show_map() {
+        this.scene.add('MapScreen', MapScreen, false);
+        this.scene.pause('Game')
+        this.scene.launch('MapScreen', {isTeleporting: false, sourceRoom: "Game"});
+    }
+
+    teleport() {
+        this.scene.add('MapScreen', MapScreen, false);
+        this.scene.pause('Game')
+        this.scene.launch('MapScreen', {isTeleporting: true, sourceRoom: "Game"});
+    }
 
   update(_time, delta) {
       this.gridControls.update();
       this.gridPhysics.update(delta);
+        if (this.player.getTilePos().x === 20 && this.player.getTilePos().y === 7 && this.gridPhysics.facingDirection === Direction.UP) this.scene.start('Room0', {
+            SourceRoom: "Game"
+        });
 
-      if (this.player.getTilePos().x === 20 && this.player.getTilePos().y === 7 && this.gridPhysics.facingDirection === Direction.UP) this.scene.start('Room0', );
 
 
       //  console.log(this.player.getTilePos())

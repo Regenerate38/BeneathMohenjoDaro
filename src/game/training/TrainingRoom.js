@@ -3,14 +3,19 @@ import { Scene } from 'phaser';
 export class TrainingRoom extends Scene {
     constructor() {
         super('TrainingRoom')
+        this.sourceRoom =""
     }
 
+    init(data) {
+        this.sourceRoom = data.sourceRoom
+    }
     preload() {
-        this.load.image("training-bg", "assets/BookshelfBackground.png");
-        this.load.image("book1", "assets/Book1.png")
-        this.load.image("book2", "assets/Book2.png")
-        this.load.image("book3", "assets/Book3.png")
-        this.load.image("book4", "assets/Book4.png")
+        this.load.image("training-bg", "assets/training_room/BookshelfBackground.png");
+        this.load.image("book1", "assets/training_room/Book1.png")
+        this.load.image("book2", "assets/training_room/Book2.png")
+        this.load.image("book3", "assets/training_room/Book3.png")
+        this.load.image("book4", "assets/training_room/Book4.png")
+
     }
 
     create() {
@@ -47,7 +52,7 @@ export class TrainingRoom extends Scene {
 
         var key_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         key_ESC.on('down', () => {
-            this.scene.start("Game");
+            this.scene.start(this.sourceRoom, {sourceRoom: "TrainingRoom"});
 
         })
     }

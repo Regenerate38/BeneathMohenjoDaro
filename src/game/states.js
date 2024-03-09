@@ -1,0 +1,16 @@
+export var States = Object.freeze({ 
+    trident: true,
+    rudraksha: true,
+    gem1: true,
+    gem2: true,
+    gem3: true,
+    gem4: true,
+    gem5: false,
+    gem6: true,
+    gem7: true,
+    gem8: true,
+    gem9: true,
+    key1: true,
+    key2: false,
+    key3: false,
+  });

@@ -1,6 +1,7 @@
 import {
     Scene
 } from 'phaser';
+import { Room0 } from '../story/rooms/Room0';
 
 
 export class MainMenu extends Scene {
@@ -19,7 +20,7 @@ export class MainMenu extends Scene {
         }
         this.add.image(512, 384, 'background');
 
-        const logo = this.add.image(512, 150, 'logo');
+        const logo = this.add.image(512, 150, 'logo').setSize(200, 100);
 
         const menu_music = this.sound.add('main_menu_theme');
         menu_music.play();
@@ -43,6 +44,11 @@ export class MainMenu extends Scene {
 
 
         continue_game.on('pointerdown', () => {
+            this.scene.add('Room0', Room0, false)
+            this.scene.start('Room0');
+        });
+
+        newgame.on('pointerdown', () => {
             this.scene.start('Game');
         });
     }
