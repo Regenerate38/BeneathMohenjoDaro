@@ -9,6 +9,7 @@ import { Sorting } from "./game/training/algorithms/sorting/Sorting";
 import { Edit } from "./game/training/algorithms/sorting/Edit";
 import { TrainingRoom } from "./game/training/TrainingRoom";
 import { TempScene } from "./game/story/TempScene";
+import { TOH } from "./game/story/puzzles/TOH";
 import { SortWindow } from "./game/training/algorithms/sorting/SortWindow";
 import { Searching } from "./game/training/algorithms/searching/Searching";
 import { LinearSearch } from "./game/training/algorithms/searching/LinearSearch";
@@ -29,6 +30,7 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [
+    TOH,
     Boot,
     Preloader,
     MainMenu,
