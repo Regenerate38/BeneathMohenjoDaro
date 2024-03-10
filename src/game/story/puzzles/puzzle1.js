@@ -70,7 +70,8 @@ export class Puzzle1 extends Scene {
 
                 // 
 
-                //this.solve_puzzle(disk, 3, 'A', 'C', 'B')
+              //  this.solve_puzzle(disk, 3, 'A', 'C', 'B')
+
                 console.log("Returned last")
             });
         });
@@ -250,7 +251,7 @@ export class Puzzle1 extends Scene {
     }
 
 
-    /*   
+ /*    
     solve_puzzle(disk, n, from_rod, to_rod, aux_rod) {
             if (n <0) {
                 console.log("Returned once")
@@ -262,7 +263,9 @@ export class Puzzle1 extends Scene {
             this.solve_puzzle(disk, n - 1, aux_rod, to_rod, from_rod);
         }
 
-        move_disks(disk, from_rod, to_rod) {
+
+
+       move_disks(disk, from_rod, to_rod) {
             let x_pos = 0,
                 y_pos = 0;
             switch (from_rod) {
@@ -299,18 +302,22 @@ export class Puzzle1 extends Scene {
                     break;
             }
             
-            const duration = 1000;
-                const ease = 'sine.out';    
-               var tween = this.tweens.add({
+            const duration = 500;
+                const ease = 'Linear';    
+              
+                var tween = this.tweens.add({
                     targets: disk,
                     x: x_pos,
                     y: y_pos,
                     duration,
-                    delay: 3000,
+                    delay: 1000,
                   ease,
+                  
                 })
-                tween.on('complete', ()=>{return});
+          
 
+            console.log("Tween completed!");
+             
                 
         }
     */
